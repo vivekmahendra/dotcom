@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Background from '../components/bg'
+import Link from 'next/link'
 
 export default function Home() {
   
@@ -12,15 +13,14 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className='h-screen flex flex-col'>
-        <nav className='h-[80px] bg-black text-white p-4'>
+        <nav className='h-[100px] bg-black text-white p-4'>
           <div className='flex justify-between p-6 px-8 w-full'>
-            <div className='text-2xl'>Vivek Mahendra</div>
+            <div className='text-6xl font-barcode'>Vivek Mahendra</div>
             <div className='font-mono text-lg md:flex space-x-8 hidden'>
-              <div>About</div>
+              <div><Link href="/about">About</Link></div>
               <div>Blog</div>
               <div>Projects</div>
               <div>Photos</div>
-              <div>Contact</div>
             </div>
           </div>
         </nav>

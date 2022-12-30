@@ -1,29 +1,19 @@
-import { useEffect, useRef, useState, useMemo, useLayoutEffect } from 'react'
-import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import { useEffect, useRef, useState, useMemo, useLayoutEffect, Suspense, lazy } from 'react'
+import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber'
 import { AsciiEffect } from 'three-stdlib'
+import Model from './model'
 
 export default function Background() {
   return (
-    <Canvas>
-      <color attach="background" args={['black']} />
-      <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-      <pointLight position={[-10, -10, -10]} />
-      <AsciiRenderer fgColor="white" bgColor="black" />
-      <Thing />
+      <Canvas >
+        <Suspense fallback={null}>
+            <color attach="background" args={['black']} />
+            <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
+            <pointLight position={[-10, -10, -10]} />
+            <AsciiRenderer fgColor="white" bgColor="black" />
+            <Model scale={[0.3,0.3,0.4]} />
+        </Suspense>
     </Canvas>
-  )
-}
-
-function Thing() {
-  const ref = useRef()
-  useFrame(() => {
-    ref.current.rotation.x = ref.current.rotation.y += 0.01
-  })
-  return (
-    <mesh ref={ref}>
-      <torusKnotGeometry args={[1, 0.2, 128, 32]} />
-      <meshStandardMaterial />
-    </mesh>
   )
 }
 
@@ -31,7 +21,7 @@ function AsciiRenderer({
     renderIndex = 1,
     bgColor = 'black',
     fgColor = 'white',
-    characters = ' .:-+*=%@#',
+    characters = ' .;-+*=%$@',
     invert = true,
     color = false,
     resolution = 0.15
