@@ -11,31 +11,28 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <nav className='bg-black h-[80px] p-6 px-8 flex justify-between text-white '>
-        <div className='text-2xl'>Vivek Mahendra</div>
-        <div className='font-mono text-lg flex space-x-8'>
-          <div>About</div>
-          <div>Blog</div>
-          <div>Projects</div>
-          <div>Photos</div>
-          <div>Contact</div>
-        </div>
-      </nav>
-      <main className='h-screen bg-black'>
-        <div className='absolute top-0 w-screen z-10 text-white'>
-          <div>
-
+      <div className='h-screen flex flex-col'>
+        <nav className='h-[80px] bg-black text-white p-4'>
+          <div className='flex justify-between p-6 px-8 w-full'>
+            <div className='text-2xl'>Vivek Mahendra</div>
+            <div className='font-mono text-lg md:flex space-x-8 hidden'>
+              <div>About</div>
+              <div>Blog</div>
+              <div>Projects</div>
+              <div>Photos</div>
+              <div>Contact</div>
+            </div>
           </div>
-        </div>
-        <div className='h-full'>
-          <Background />
-        </div>
-      </main>
-      <footer className='absolute bottom-8 text-white font-thin w-full'>
-        <div className='flex justify-center'>
-          Made in PHX 🌵
-        </div>
-      </footer>
+        </nav>
+        <main className='flex-1 p-4 bg-black'>
+            <Background />
+        </main>
+        <footer className='h-[80px] bg-black p-4 text-white'>
+          <div className='flex justify-center'>
+            Made in PHX 🌵
+          </div>
+        </footer>
+      </div>
     </>
   )
 }
