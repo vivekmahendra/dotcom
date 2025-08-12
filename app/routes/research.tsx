@@ -33,6 +33,9 @@ const posts = [
 export default function Research() {
   return (
     <div className="bg-white text-black">
+      {/* Newsletter Banner */}
+      <Newsletter banner={true} />
+      
       <div className="container mx-auto px-6 py-20">
         <div className="max-w-4xl mx-auto">
           <div className="mb-16">
@@ -40,11 +43,6 @@ export default function Research() {
             <p className="text-xl text-gray-600 mb-8">
               Investment analysis, market insights, and strategic thinking.
             </p>
-            
-            {/* Newsletter Subscription */}
-            <div className="mb-12">
-              <Newsletter />
-            </div>
           </div>
           
           <div className="space-y-12">

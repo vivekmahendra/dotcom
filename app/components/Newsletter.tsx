@@ -2,12 +2,14 @@ import { useState } from "react";
 
 interface NewsletterProps {
   inline?: boolean;
+  banner?: boolean;
   title?: string;
   description?: string;
 }
 
 export function Newsletter({ 
-  inline = false, 
+  inline = false,
+  banner = false,
   title = "Subscribe to Research Updates",
   description = "Get notified when new investment research is published."
 }: NewsletterProps) {
@@ -32,6 +34,58 @@ export function Newsletter({
       setMessage("Something went wrong. Please try again.");
     }
   };
+
+  if (banner) {
+    return (
+      <div className="bg-gray-50 border-b border-gray-200 py-3">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex items-center justify-between gap-6">
+              <div className="flex-1">
+                <div className="flex items-center gap-4">
+                  <div>
+                    <h3 className="text-sm font-medium text-gray-900">{title}</h3>
+                    <p className="text-xs text-gray-600">{description}</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="flex-shrink-0">
+                <form onSubmit={handleSubmit} className="flex items-center gap-2">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email"
+                    required
+                    className="text-sm px-3 py-1.5 border border-gray-300 rounded-sm focus:outline-none focus:border-black w-48"
+                  />
+                  <button
+                    type="submit"
+                    disabled={status === 'loading'}
+                    className="text-sm px-4 py-1.5 bg-black text-white rounded-sm hover:bg-gray-800 disabled:opacity-50 transition-colors whitespace-nowrap"
+                  >
+                    {status === 'loading' ? 'Subscribing...' : 'Subscribe'}
+                  </button>
+                </form>
+              </div>
+            </div>
+            
+            {status === 'success' && (
+              <div className="mt-2">
+                <p className="text-green-600 text-xs">{message}</p>
+              </div>
+            )}
+            {status === 'error' && (
+              <div className="mt-2">
+                <p className="text-red-600 text-xs">{message}</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (inline) {
     return (

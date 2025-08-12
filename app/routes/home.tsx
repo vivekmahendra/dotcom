@@ -11,25 +11,30 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white text-black">
-      <div className="container mx-auto px-6">
-        <div className="flex items-center min-h-[calc(100vh-120px)]">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 w-full">
-            <div className="flex flex-col justify-center">
-              <h1 className="text-5xl lg:text-6xl font-light leading-tight mb-6">
-                Hello,<br />
-                I'm Vivek<br />
-                Mahendra
+    <div className="relative min-h-screen bg-white text-black overflow-hidden">
+      {/* Full-screen 3D Background */}
+      <div className="absolute inset-0 w-full h-full">
+        <Suspense
+          fallback={<div className="w-full h-full bg-gray-50 animate-pulse" />}
+        >
+          <Scene3D />
+        </Suspense>
+      </div>
+
+      {/* Text Overlay */}
+      <div className="relative z-10 min-h-screen flex items-center">
+        <div className="container mx-auto px-6">
+          <div className="max-w-2xl">
+            <div className="bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-lg shadow-lg">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light leading-tight mb-4 md:mb-6">
+                Hey there 👋
+                <br />
+                I'm Vivek
               </h1>
-              <p className="text-xl text-gray-600 max-w-lg">
-                Welcome to my digital space where I explore technology, investments, and creative pursuits.
+              <p className="text-lg md:text-xl text-gray-600 max-w-lg">
+                Welcome to my digital space where I explore technology,
+                investments, and creative pursuits.
               </p>
-            </div>
-            
-            <div className="flex items-center justify-center">
-              <Suspense fallback={<div className="w-full h-64 bg-gray-50 animate-pulse" />}>
-                <Scene3D />
-              </Suspense>
             </div>
           </div>
         </div>
