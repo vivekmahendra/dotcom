@@ -13,3 +13,19 @@ body {
     color-scheme: dark;
   }
 }
+
+/* Styles for HTML content in 3D scene */
+.content {
+  width: 1024px;
+  height: 640px;
+  pointer-events: auto;
+}
+
+.wrapper {
+  pointer-events: auto;
+  cursor: default;
+}
+
+.wrapper:hover {
+  cursor: default;
+}

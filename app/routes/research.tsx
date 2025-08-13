@@ -1,6 +1,8 @@
 import type { Route } from "./+types/research";
 import { Link } from "react-router";
 import { Newsletter } from "../components/Newsletter";
+import { PageScene3D } from "../components/PageScene3D";
+import { Suspense } from "react";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -38,11 +40,19 @@ export default function Research() {
       
       <div className="container mx-auto px-6 py-20">
         <div className="max-w-4xl mx-auto">
-          <div className="mb-16">
-            <h1 className="text-4xl font-light mb-8">Research</h1>
-            <p className="text-xl text-gray-600 mb-8">
-              Investment analysis, market insights, and strategic thinking.
-            </p>
+          {/* Header with 3D Scene */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <div className="md:col-span-2">
+              <h1 className="text-4xl font-light mb-4">Research</h1>
+              <p className="text-xl text-gray-600">
+                Investment analysis, market insights, and strategic thinking.
+              </p>
+            </div>
+            <div className="h-48 md:h-64">
+              <Suspense fallback={<div className="w-full h-full bg-gray-50 animate-pulse rounded" />}>
+                <PageScene3D modelType="research" enableOrbitControls />
+              </Suspense>
+            </div>
           </div>
           
           <div className="space-y-12">
