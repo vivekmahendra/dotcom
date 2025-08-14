@@ -1,38 +1,20 @@
-import type { Route } from "./+types/research";
+import type { Route } from "./+types/ideas";
 import { Link } from "react-router";
 import { Newsletter } from "../components/Newsletter";
 import { PageScene3D } from "../components/PageScene3D";
 import { Suspense } from "react";
+import { getIdeas } from "../utils/content";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Research - Vivek Mahendra" },
-    { name: "description", content: "Investment research and analysis by Vivek Mahendra" },
+    { title: "Ideas - Vivek Mahendra" },
+    { name: "description", content: "Investment ideas and analysis by Vivek Mahendra" },
   ];
 }
 
-const posts = [
-  {
-    title: "Understanding Market Dynamics in 2024",
-    date: "2024-01-15",
-    excerpt: "An analysis of current market trends and their implications for long-term investing.",
-    slug: "market-dynamics-2024",
-  },
-  {
-    title: "Tech Stock Valuation: A Deep Dive",
-    date: "2024-01-10",
-    excerpt: "Exploring valuation methodologies for technology companies in the current environment.",
-    slug: "tech-stock-valuation",
-  },
-  {
-    title: "Emerging Markets Outlook",
-    date: "2024-01-05",
-    excerpt: "Key considerations for emerging market investments in the coming year.",
-    slug: "emerging-markets-outlook",
-  },
-];
+const posts = getIdeas();
 
-export default function Research() {
+export default function Ideas() {
   return (
     <div className="bg-white text-black">
       {/* Newsletter Banner */}
@@ -43,7 +25,7 @@ export default function Research() {
           {/* Header with 3D Scene */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             <div className="md:col-span-2">
-              <h1 className="text-4xl font-light mb-4">Research</h1>
+              <h1 className="text-4xl font-light mb-4">Ideas</h1>
               <p className="text-xl text-gray-600">
                 Investment analysis, market insights, and strategic thinking.
               </p>
@@ -60,7 +42,7 @@ export default function Research() {
               <article key={index} className="border-b border-gray-200 pb-8 last:border-b-0">
                 <h2 className="text-2xl font-medium mb-2">
                   <Link 
-                    to={`/research/${post.slug}`}
+                    to={`/ideas/${post.slug}`}
                     className="hover:text-gray-600 transition-colors"
                   >
                     {post.title}
@@ -75,7 +57,7 @@ export default function Research() {
                 </time>
                 <p className="text-gray-700 leading-relaxed mb-4">{post.excerpt}</p>
                 <Link 
-                  to={`/research/${post.slug}`}
+                  to={`/ideas/${post.slug}`}
                   className="text-black hover:text-gray-600 transition-colors inline-flex items-center text-sm"
                 >
                   Read full article →

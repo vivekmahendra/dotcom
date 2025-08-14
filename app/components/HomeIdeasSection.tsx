@@ -1,40 +1,22 @@
 import { Link } from "react-router";
+import { getIdeas } from "../utils/content";
 
-const researchPosts = [
-  {
-    title: "Understanding Market Dynamics in 2024",
-    date: "2024-01-15",
-    excerpt: "An analysis of current market trends and their implications for long-term investing.",
-    slug: "market-dynamics-2024",
-  },
-  {
-    title: "Tech Stock Valuation: A Deep Dive",
-    date: "2024-01-10",
-    excerpt: "Exploring valuation methodologies for technology companies in the current environment.",
-    slug: "tech-stock-valuation",
-  },
-  {
-    title: "Emerging Markets Outlook",
-    date: "2024-01-05",
-    excerpt: "Key considerations for emerging market investments in the coming year.",
-    slug: "emerging-markets-outlook",
-  },
-];
+const ideas = getIdeas();
 
-export function HomeResearchSection() {
+export function HomeIdeasSection() {
   return (
     <section className="py-16">
       <div className="mb-8">
-        <h2 className="text-3xl font-light mb-2">Latest Research</h2>
+        <h2 className="text-3xl font-light mb-2">Latest Ideas</h2>
         <p className="text-gray-600">Investment analysis and market insights</p>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        {researchPosts.map((post) => (
+        {ideas.map((post) => (
           <article key={post.slug} className="border border-gray-200 p-6 hover:border-gray-400 transition-colors">
             <h3 className="text-xl font-medium mb-2">
               <Link 
-                to={`/research/${post.slug}`}
+                to={`/ideas/${post.slug}`}
                 className="hover:text-gray-600 transition-colors"
               >
                 {post.title}
@@ -51,7 +33,7 @@ export function HomeResearchSection() {
               {post.excerpt}
             </p>
             <Link 
-              to={`/research/${post.slug}`}
+              to={`/ideas/${post.slug}`}
               className="text-black hover:text-gray-600 transition-colors inline-flex items-center text-sm"
             >
               Read more →
@@ -61,10 +43,10 @@ export function HomeResearchSection() {
       </div>
       
       <Link 
-        to="/research"
+        to="/ideas"
         className="text-black hover:text-gray-600 transition-colors inline-flex items-center"
       >
-        View all research →
+        View all ideas →
       </Link>
     </section>
   );

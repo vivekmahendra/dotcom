@@ -1,38 +1,18 @@
-import type { Route } from "./+types/portfolio";
+import type { Route } from "./+types/projects";
 import { PageScene3D } from "../components/PageScene3D";
 import { Suspense } from "react";
+import { getProjects } from "../utils/content";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Portfolio - Vivek Mahendra" },
+    { title: "Projects - Vivek Mahendra" },
     { name: "description", content: "Projects and work by Vivek Mahendra" },
   ];
 }
 
-const projects = [
-  {
-    name: "Project One",
-    description: "A brief description of this project and what it accomplishes.",
-    link: "#",
-  },
-  {
-    name: "Project Two",
-    description: "Another project showcasing different skills and technologies.",
-    link: "#",
-  },
-  {
-    name: "Project Three",
-    description: "Third project demonstrating various capabilities and solutions.",
-    link: "#",
-  },
-  {
-    name: "Project Four",
-    description: "Fourth project highlighting innovative approaches and results.",
-    link: "#",
-  },
-];
+const projects = getProjects();
 
-export default function Portfolio() {
+export default function Projects() {
   return (
     <div className="bg-white text-black">
       <div className="container mx-auto px-6 py-20">
@@ -40,7 +20,7 @@ export default function Portfolio() {
           {/* Header with 3D Scene */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             <div className="md:col-span-2">
-              <h1 className="text-4xl font-light mb-4">Portfolio</h1>
+              <h1 className="text-4xl font-light mb-4">Projects</h1>
               <p className="text-lg text-gray-600">
                 A collection of projects and experiments showcasing my work in software development,
                 design, and technology.
@@ -54,9 +34,9 @@ export default function Portfolio() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
+            {projects.map((project) => (
               <div
-                key={index}
+                key={project.slug}
                 className="border border-gray-200 p-6 hover:border-gray-400 transition-colors group"
               >
                 <h3 className="text-xl font-medium mb-3">{project.name}</h3>

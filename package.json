@@ -16,6 +16,8 @@
     "@react-three/drei": "^10.6.1",
     "@react-three/fiber": "^9.3.0",
     "@types/three": "^0.179.0",
+    "gray-matter": "^4.0.3",
+    "gsap": "^3.13.0",
     "isbot": "^5.1.27",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",

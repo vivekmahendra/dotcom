@@ -3,8 +3,8 @@ import { Link, useLocation } from "react-router";
 const navigation = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
-  { name: "Portfolio", href: "/portfolio" },
-  { name: "Research", href: "/research" },
+  { name: "Projects", href: "/projects" },
+  { name: "Ideas", href: "/ideas" },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {

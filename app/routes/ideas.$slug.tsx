@@ -1,4 +1,4 @@
-import type { Route } from "./+types/research.$slug";
+import type { Route } from "./+types/ideas.$slug";
 import { useLoaderData } from "react-router";
 import { BlogLayout } from "../components/BlogLayout";
 import { MDXProvider } from "@mdx-js/react";
@@ -17,7 +17,7 @@ export async function loader({ params }: Route.LoaderArgs) {
   
   try {
     // Just get the frontmatter, not the component
-    const mdxModule = await import(`../../content/research/${slug}.mdx`);
+    const mdxModule = await import(`../../content/ideas/${slug}.mdx`);
     
     return {
       slug,
@@ -44,7 +44,7 @@ export default function BlogPost() {
   const { frontmatter, slug } = useLoaderData<typeof loader>();
   
   // Dynamically import the MDX component on the client
-  const Content = lazy(() => import(`../../content/research/${slug}.mdx`));
+  const Content = lazy(() => import(`../../content/ideas/${slug}.mdx`));
   
   return (
     <BlogLayout
