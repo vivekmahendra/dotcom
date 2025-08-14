@@ -18,13 +18,13 @@ export function BlogLayout({
   return (
     <div className="bg-white text-black">
       <div className="container mx-auto px-6 py-20">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           {/* Back to Research */}
           <Link 
-            to="/research" 
+            to="/ideas" 
             className="inline-flex items-center text-gray-500 hover:text-black transition-colors mb-8"
           >
-            ← Back to Research
+            ← Back to Ideas
           </Link>
           
           {/* Article Header */}
@@ -60,10 +60,10 @@ export function BlogLayout({
           {/* Article Footer */}
           <footer className="mt-16 pt-8 border-t border-gray-200">
             <Link 
-              to="/research"
+              to="/ideas"
               className="text-black hover:text-gray-600 transition-colors"
             >
-              ← Back to all research
+              ← Back to all ideas
             </Link>
           </footer>
         </div>

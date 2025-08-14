@@ -21,7 +21,7 @@ export default function Ideas() {
       <Newsletter banner={true} />
       
       <div className="container mx-auto px-6 py-20">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           {/* Header with 3D Scene */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             <div className="md:col-span-2">
