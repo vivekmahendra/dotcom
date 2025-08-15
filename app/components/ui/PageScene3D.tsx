@@ -1,7 +1,7 @@
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { Suspense } from "react";
-import { PlaceholderCube } from "./models/PlaceholderCube";
+import { PlaceholderCube } from "../models/PlaceholderCube";
 
 interface PageScene3DProps {
   modelType: 'about' | 'portfolio' | 'research';

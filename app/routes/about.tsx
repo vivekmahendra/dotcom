@@ -1,5 +1,5 @@
 import type { Route } from "./+types/about";
-import { PageHeader } from "../components/PageHeader";
+import { PageHeader } from "../components/layouts";
 
 export function meta({}: Route.MetaArgs) {
   return [

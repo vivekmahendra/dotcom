@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { getIdeas } from "../utils/content";
+import { getIdeas } from "../../utils/content";
 
 const ideas = getIdeas();
 

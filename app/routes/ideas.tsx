@@ -1,7 +1,7 @@
 import type { Route } from "./+types/ideas";
 import { Link } from "react-router";
-import { Newsletter } from "../components/Newsletter";
-import { PageHeader } from "../components/PageHeader";
+import { Newsletter } from "../components/ui";
+import { PageHeader } from "../components/layouts";
 import { getIdeas } from "../utils/content";
 
 export function meta({}: Route.MetaArgs) {

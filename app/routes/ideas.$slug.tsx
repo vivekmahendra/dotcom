@@ -1,6 +1,6 @@
 import type { Route } from "./+types/ideas.$slug";
 import { useLoaderData } from "react-router";
-import { BlogLayout } from "../components/BlogLayout";
+import { BlogLayout } from "../components/layouts";
 import { MDXProvider } from "@mdx-js/react";
 import mdxComponents from "../components/mdx";
 import { lazy, Suspense } from "react";

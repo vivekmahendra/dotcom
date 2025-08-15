@@ -12,7 +12,7 @@ import { Blockquote, HorizontalRule } from './typography/Blockquote';
 import { Callout } from './Callout';
 import { DataTable } from './DataTable';
 import { StockChart } from './StockChart';
-import { Newsletter } from '../Newsletter';
+import { Newsletter } from '../ui';
 
 /**
  * Centralized MDX component mapping

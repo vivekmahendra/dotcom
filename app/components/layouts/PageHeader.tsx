@@ -1,4 +1,4 @@
-import { DecryptedText } from "./react-bits";
+import { DecryptedText } from "../react-bits";
 
 interface PageHeaderProps {
   title: string;

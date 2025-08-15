@@ -1,6 +1,6 @@
 import type { Route } from "./+types/projects";
 import { Link } from "react-router";
-import { PageHeader } from "../components/PageHeader";
+import { PageHeader } from "../components/layouts";
 import { getProjects } from "../utils/content";
 
 export function meta({}: Route.MetaArgs) {

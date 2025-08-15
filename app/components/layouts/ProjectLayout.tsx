@@ -1,5 +1,5 @@
-import { PageScene3D } from "./PageScene3D";
-import { DecryptedText } from "./react-bits";
+import { PageScene3D } from "../ui";
+import { DecryptedText } from "../react-bits";
 
 interface ProjectLayoutProps {
   name: string;

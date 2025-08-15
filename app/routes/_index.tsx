@@ -1,6 +1,5 @@
 import type { Route } from "./+types/_index";
-import { HomeIdeasSection } from "../components/HomeIdeasSection";
-import { HomeProjectsSection } from "../components/HomeProjectsSection";
+import { HomeIdeasSection, HomeProjectsSection } from "../components/home";
 import { DecryptedText, LetterGlitch } from "../components/react-bits";
 
 export function meta({}: Route.MetaArgs) {

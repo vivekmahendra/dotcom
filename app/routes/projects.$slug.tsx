@@ -1,6 +1,6 @@
 import type { Route } from "./+types/projects.$slug";
 import { useLoaderData } from "react-router";
-import { ProjectLayout } from "../components/ProjectLayout";
+import { ProjectLayout } from "../components/layouts";
 import { MDXProvider } from "@mdx-js/react";
 import mdxComponents from "../components/mdx";
 import { lazy, Suspense } from "react";

@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { getProjects } from "../utils/content";
+import { getProjects } from "../../utils/content";
 
 const projects = getProjects();
 
