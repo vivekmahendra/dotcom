@@ -3,12 +3,17 @@ import { Link } from "react-router";
 import { Newsletter } from "../components/ui";
 import { PageHeader } from "../components/layouts";
 import { getIdeas } from "../utils/content";
+import { handleNewsletterAction } from "../lib/newsletter-action";
 
 export function meta({}: Route.MetaArgs) {
   return [
     { title: "Ideas - Vivek Mahendra" },
     { name: "description", content: "Investment ideas and analysis by Vivek Mahendra" },
   ];
+}
+
+export async function action({ request }: Route.ActionArgs) {
+  return handleNewsletterAction(request);
 }
 
 const posts = getIdeas();

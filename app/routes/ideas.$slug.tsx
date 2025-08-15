@@ -4,6 +4,7 @@ import { BlogLayout } from "../components/layouts";
 import { MDXProvider } from "@mdx-js/react";
 import mdxComponents from "../components/mdx";
 import { lazy, Suspense } from "react";
+import { handleNewsletterAction } from "../lib/newsletter-action";
 
 export async function loader({ params }: Route.LoaderArgs) {
   const { slug } = params;
@@ -38,6 +39,10 @@ export function meta({ loaderData }: Route.MetaArgs) {
     { title: `${loaderData.frontmatter.title} - Vivek Mahendra` },
     { name: "description", content: loaderData.frontmatter.excerpt },
   ];
+}
+
+export async function action({ request }: Route.ActionArgs) {
+  return handleNewsletterAction(request);
 }
 
 export default function BlogPost() {

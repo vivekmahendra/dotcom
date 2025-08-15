@@ -1,11 +1,17 @@
 import type { Route } from "./+types/about";
 import { PageHeader } from "../components/layouts";
+import { Newsletter } from "../components/ui/Newsletter";
+import { handleNewsletterAction } from "../lib/newsletter-action";
 
 export function meta({}: Route.MetaArgs) {
   return [
     { title: "About - Vivek Mahendra" },
     { name: "description", content: "Learn more about Vivek Mahendra" },
   ];
+}
+
+export async function action({ request }: Route.ActionArgs) {
+  return handleNewsletterAction(request);
 }
 
 export default function About() {
@@ -115,6 +121,10 @@ export default function About() {
                 </div>
               ))}
             </div>
+          </div>
+
+          <div className="mt-20">
+            <Newsletter inline />
           </div>
         </div>
       </div>

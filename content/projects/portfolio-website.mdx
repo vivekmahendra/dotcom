@@ -13,11 +13,13 @@ This is my personal portfolio website built with modern web technologies, focusi
 
 ## Architecture Overview
 
-The application is built on **React Router v7** (the evolution of Remix), providing full-stack capabilities with file-based routing and server-side rendering. The content management system uses **MDX** files for blog posts and project descriptions, allowing for rich content with embedded React components.
+The application is built on <ShinyLink href="https://reactrouter.com">React Router v7</ShinyLink> (the evolution of Remix), providing full-stack capabilities with file-based routing and server-side rendering. The content management system uses <ShinyLink href="https://mdxjs.com">MDX</ShinyLink> files for blog posts and project descriptions, allowing for rich content with embedded React components.
 
 The design philosophy emphasizes minimalism and performance:
+
 - Clean, professional typography using system fonts
-- Tailwind CSS for consistent, utility-first styling
+- <ShinyLink href="https://tailwindcss.com">Tailwind CSS</ShinyLink> for
+  consistent, utility-first styling
 - Subtle animations that enhance UX without being distracting
 - Mobile-first responsive design
 - Fast build times and optimal loading performance
@@ -25,10 +27,13 @@ The design philosophy emphasizes minimalism and performance:
 ## Key Technical Features
 
 ### Content-First Architecture
+
 All blog posts and project descriptions are written in MDX, stored in the `/content` directory. This approach provides the best of both worlds: the simplicity of Markdown with the power of React components for interactive elements like charts and code snippets.
 
 ### Component Organization
+
 The codebase follows a clear component hierarchy:
+
 - `/layouts` - Reusable layout components
 - `/home` - Home page specific sections
 - `/ui` - General UI components
@@ -36,7 +41,9 @@ The codebase follows a clear component hierarchy:
 - `/react-bits` - Third-party animated components
 
 ### Performance Optimizations
-- Vite for fast development and optimized production builds
+
+- <ShinyLink href="https://vitejs.dev">Vite</ShinyLink> for fast development and
+  optimized production builds
 - Dynamic imports for code splitting
 - Responsive images and lazy loading
 - Minimal JavaScript bundle size
@@ -49,25 +56,25 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  return (
-    <div className="min-h-screen bg-white text-black flex flex-col">
-      <header className="border-b border-gray-200">
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-8">
-          {navigation.map((item) => (
-            <Link
-              to={item.href}
-              className={\`transition-colors \${
-                location.pathname === item.href
-                  ? "text-black"
-                  : "text-gray-500 hover:text-black"
-              }\`}
-            >
-              {item.name}
-            </Link>
-          ))}
-        </nav>
-        
+return (
+
+<div className="min-h-screen bg-white text-black flex flex-col">
+<header className="border-b border-gray-200">
+{/* Desktop Navigation */}
+<nav className="hidden md:flex space-x-8">
+{navigation.map((item) => (
+<Link
+to={item.href}
+className={\`transition-colors \${
+location.pathname === item.href
+? "text-black"
+: "text-gray-500 hover:text-black"
+}\`} >
+{item.name}
+</Link>
+))}
+</nav>
+
         {/* Animated mobile menu with staggered transitions */}
         <div className={\`md:hidden overflow-hidden transition-all duration-300 \${
           mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
@@ -75,14 +82,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
           {/* Menu items with cascading animation delays */}
         </div>
       </header>
-      
+
       <main className="flex-grow">{children}</main>
       <footer className="border-t border-gray-200 mt-auto">
         Made in Phoenix 🌵
       </footer>
     </div>
-  );
+
+);
 }`}
+
 </CodeSnippet>
 
 The layout component demonstrates several key patterns: a sticky header with conditional styling based on the current route, an animated mobile menu with staggered transitions, and a flexbox layout that ensures the footer stays at the bottom. The mobile menu uses CSS transforms and opacity for smooth animations.
@@ -104,20 +113,21 @@ export function getIdeas() {
 
 // Route loader for individual posts
 export async function loader({ params }) {
-  const { slug } = params;
-  const content = await import(\`../content/ideas/\${slug}.mdx\`);
-  
-  return {
-    content: content.default,
-    frontmatter: content.frontmatter
-  };
+const { slug } = params;
+const content = await import(\`../content/ideas/\${slug}.mdx\`);
+
+return {
+content: content.default,
+frontmatter: content.frontmatter
+};
 }`}
+
 </CodeSnippet>
 
-This content management system uses Vite's `import.meta.glob` to automatically discover and import MDX files at build time. The frontmatter is extracted for metadata like titles and dates, while the content is dynamically loaded in route loaders. This approach eliminates the need for a traditional CMS while maintaining type safety.
+This content management system uses <ShinyLink href="https://vitejs.dev">Vite</ShinyLink>'s `import.meta.glob` to automatically discover and import <ShinyLink href="https://mdxjs.com">MDX</ShinyLink> files at build time. The frontmatter is extracted for metadata like titles and dates, while the content is dynamically loaded in route loaders. This approach eliminates the need for a traditional CMS while maintaining type safety.
 
 <CodeSnippet title="Vite Configuration" filename="vite.config.ts">
-{`// Modern build setup with MDX and ngrok support
+  {`// Modern build setup with MDX and ngrok support
 export default defineConfig({
   plugins: [
     tailwindcss(), 
@@ -142,7 +152,7 @@ export default defineConfig({
 });`}
 </CodeSnippet>
 
-The Vite configuration showcases the modern build pipeline. The MDX plugin handles frontmatter extraction and JSX compilation, while the ngrok allowedHosts configuration enables easy local development with external access for testing on mobile devices.
+The <ShinyLink href="https://vitejs.dev">Vite</ShinyLink> configuration showcases the modern build pipeline. The <ShinyLink href="https://mdxjs.com">MDX</ShinyLink> plugin handles frontmatter extraction and JSX compilation, while the ngrok allowedHosts configuration enables easy local development with external access for testing on mobile devices.
 
 <CodeSnippet title="Animated Components with React Bits" filename="HomePage.tsx">
 {`// LetterGlitch background with DecryptedText header
@@ -165,18 +175,20 @@ export default function Home() {
 
         <div className="container mx-auto px-6 relative z-10">
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extralight">
-            <DecryptedText 
-              text="Hello, I'm Vivek" 
-              animateOn="view" 
-              revealDirection="start" 
+            <DecryptedText
+              text="Hello, I'm Vivek"
+              animateOn="view"
+              revealDirection="start"
               speed={100}
             />
           </h1>
         </div>
       </div>
     </div>
-  );
+
+);
 }`}
+
 </CodeSnippet>
 
 The home page demonstrates layered animations using React Bits components. The LetterGlitch provides a subtle animated background that doesn't interfere with readability, while DecryptedText creates an engaging reveal effect for the main heading. The `overflow-x-hidden` class prevents horizontal scrolling issues on mobile.
@@ -229,6 +241,7 @@ This demonstrates the DRY principle applied to UI components. Rather than repeat
 </Link>
 
 // Applied consistently across home sections, project cards, and article links`}
+
 </CodeSnippet>
 
 These micro-interactions add polish without overwhelming the user. The arrow translate animation provides immediate feedback on hover, while the group/group-hover pattern ensures the animation only affects the arrow, not the entire link. This creates a cohesive experience across all navigation elements.
@@ -237,16 +250,15 @@ These micro-interactions add polish without overwhelming the user. The arrow tra
 
 The development setup prioritizes fast feedback loops and maintainability:
 
-- **Hot module replacement** via <ShinyLink href="https://vitejs.dev">Vite</ShinyLink> for instant updates during development
+- **Hot module replacement** for instant updates during development
 - **TypeScript** throughout for type safety and better IDE support
 - **Consistent code organization** making features easy to locate and modify
 - **Component-driven development** enabling rapid UI iteration
 
-Built with modern tools like <ShinyLink href="https://reactrouter.com">React Router v7</ShinyLink> and <ShinyLink href="https://tailwindcss.com">Tailwind CSS</ShinyLink>.
-
 ## Performance Considerations
 
 The site achieves excellent Core Web Vitals through several optimizations:
+
 - Server-side rendering for fast initial page loads
 - Minimal JavaScript bundle sizes through code splitting
 - Optimized images and lazy loading

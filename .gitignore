@@ -7,3 +7,8 @@
 
 /.claude/
 
+# Environment variables
+.env.local
+.env.production
+.env
+
