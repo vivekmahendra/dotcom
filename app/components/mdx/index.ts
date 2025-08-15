@@ -16,3 +16,4 @@ export { DataTable } from './DataTable';
 export { StockChart } from './StockChart';
 export { BarChart } from './BarChart';
 export { SankeyChart } from './SankeyChart';
+export { CodeSnippet } from './CodeSnippet';

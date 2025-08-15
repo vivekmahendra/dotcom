@@ -242,7 +242,7 @@ export function SankeyChart({
                                   path={createPath}
                                   fill="transparent"
                                   stroke={linkColor}
-                                  strokeWidth={width < 640 ? Math.max(link.width * 0.15, 0.3) : link.width}
+                                  strokeWidth={width < 640 ? Math.max((link.width || 1) * 0.15, 0.3) : (link.width || 1)}
                                   strokeOpacity={width < 640 ? 0.75 : 0.6}
                                   onMouseMove={(event) => {
                                     const coords = localPoint(
@@ -258,7 +258,7 @@ export function SankeyChart({
                                   onTouchStart={(event) => {
                                     const coords = localPoint(
                                       (event.target as SVGElement).ownerSVGElement || event.target as SVGElement,
-                                      event.touches[0],
+                                      event.touches[0] as any,
                                     );
                                     showTooltip({
                                       tooltipData: `${sourceNode.name} → ${targetNode.name}: ${formatCurrency(link.value)}`,
@@ -315,7 +315,7 @@ export function SankeyChart({
                                     onTouchStart={(event) => {
                                       const coords = localPoint(
                                         (event.target as SVGElement).ownerSVGElement || event.target as SVGElement,
-                                        event.touches[0],
+                                        event.touches[0] as any,
                                       );
                                       let tooltipContent = `${node.name}: ${formatCurrency(node.value)}`;
                                       if (node.margin) {
