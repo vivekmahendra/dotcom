@@ -156,22 +156,22 @@ export function SankeyChart({
     hideTooltip,
   } = useTooltip<string>();
 
-  // Responsive margins and sizing
+  // Responsive margins and sizing - Mobile-first optimization
   const getResponsiveProps = (width: number) => {
-    if (width < 640) { // Mobile
+    if (width < 640) { // Mobile - Ultra-professional & compact
       return {
-        margin: { top: 20, right: 80, bottom: 20, left: 80 },
-        height: Math.max(height, 500),
-        nodeWidth: 16,
-        nodePadding: 12,
-        fontSize: { label: 12, value: 10 }
+        margin: { top: 12, right: 50, bottom: 12, left: 50 },
+        height: Math.max(height, 380),
+        nodeWidth: 10,
+        nodePadding: 6,
+        fontSize: { label: 10, value: 8 }
       };
     } else if (width < 768) { // Tablet
       return {
-        margin: { top: 25, right: 100, bottom: 25, left: 100 },
+        margin: { top: 20, right: 80, bottom: 20, left: 80 },
         height: Math.max(height, 450),
-        nodeWidth: 20,
-        nodePadding: 16,
+        nodeWidth: 18,
+        nodePadding: 14,
         fontSize: { label: 12, value: 10 }
       };
     } else { // Desktop
@@ -242,8 +242,8 @@ export function SankeyChart({
                                   path={createPath}
                                   fill="transparent"
                                   stroke={linkColor}
-                                  strokeWidth={Math.max(link.width, width < 640 ? 3 : 1)}
-                                  strokeOpacity={0.6}
+                                  strokeWidth={width < 640 ? Math.max(link.width * 0.15, 0.3) : link.width}
+                                  strokeOpacity={width < 640 ? 0.75 : 0.6}
                                   onMouseMove={(event) => {
                                     const coords = localPoint(
                                       (event.target as SVGElement).ownerSVGElement || event.target as SVGElement,
@@ -341,7 +341,7 @@ export function SankeyChart({
                                       y={((node.y0 ?? 0) + (node.y1 ?? 0)) / 2}
                                       dy="0.35em"
                                       fontSize={isCenter ? responsive.fontSize.label + 2 : responsive.fontSize.label}
-                                      fontWeight={isCenter ? 'bold' : 'medium'}
+                                      fontWeight={width < 640 ? (isCenter ? 'bold' : '500') : (isCenter ? 'bold' : 'medium')}
                                       fill={isCenter ? '#1f2937' : (node.category === 'elimination' || node.category === 'expense') ? '#dc2626' : '#374151'}
                                       textAnchor={isCenter ? 'middle' : (node.category === 'source' || node.category === 'intermediate') ? 'end' : 'start'}
                                       className="font-sans pointer-events-none"
