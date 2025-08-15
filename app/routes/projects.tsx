@@ -1,4 +1,5 @@
 import type { Route } from "./+types/projects";
+import { Link } from "react-router";
 import { PageHeader } from "../components/PageHeader";
 import { getProjects } from "../utils/content";
 
@@ -24,14 +25,24 @@ export default function Projects() {
                 key={project.slug}
                 className="border border-gray-200 p-6 hover:border-gray-400 transition-colors group"
               >
-                <h3 className="text-xl font-medium mb-3">{project.name}</h3>
+                <div className="mb-4">
+                  <h3 className="text-xl font-medium mb-2">{project.name}</h3>
+                  {project.date && (
+                    <time className="text-sm text-gray-500">
+                      {new Date(project.date).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long'
+                      })}
+                    </time>
+                  )}
+                </div>
                 <p className="text-gray-600 mb-4">{project.description}</p>
-                <a
-                  href={project.link}
+                <Link
+                  to={`/projects/${project.slug}`}
                   className="group text-sm text-gray-600 hover:text-black transition-colors inline-block"
                 >
-                  View Project <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
-                </a>
+                  View Details <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+                </Link>
               </div>
             ))}
           </div>

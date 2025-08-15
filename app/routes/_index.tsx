@@ -1,7 +1,7 @@
 import type { Route } from "./+types/_index";
 import { HomeIdeasSection } from "../components/HomeIdeasSection";
 import { HomeProjectsSection } from "../components/HomeProjectsSection";
-import { LetterGlitch } from "../components/react-bits";
+import { DecryptedText, LetterGlitch } from "../components/react-bits";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -35,7 +35,7 @@ export default function Home() {
                 {/* Main heading with modern typography */}
                 <div>
                   <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extralight tracking-tight leading-none mb-2">
-                    Vivek Mahendra
+                    <DecryptedText text="Hello, I'm Vivek" animateOn="view" revealDirection="start" speed={100}/>
                   </h1>
                   <div className="flex flex-wrap gap-x-4 gap-y-2 font-mono text-sm text-gray-600 mt-4">
                     <span className="flex items-center">
