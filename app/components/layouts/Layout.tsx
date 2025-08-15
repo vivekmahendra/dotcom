@@ -161,6 +161,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <div className="text-center text-gray-600">
               Made in Phoenix 🌵
             </div>
+            
+            {/* Investment Disclosure */}
+            <div className="text-center text-xs text-gray-500 max-w-2xl mx-auto px-4 pt-4 border-t border-gray-200">
+              <p className="mb-2">
+                <strong>Investment Disclosure:</strong> All investment analyses and recommendations are for informational purposes only and should not be considered as personalized investment advice. 
+              </p>
+              <p>
+                Past performance does not guarantee future results. Always conduct your own research and consult with qualified financial advisors before making investment decisions. The author may hold positions in securities mentioned.
+              </p>
+            </div>
           </div>
         </div>
       </footer>

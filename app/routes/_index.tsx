@@ -51,20 +51,18 @@ export default function Home() {
                 {/* Description */}
                 <div className="space-y-4 max-w-3xl">
                   <p className="text-lg text-gray-700 leading-relaxed">
-                    Building elegant software solutions and analyzing market
-                    dynamics through fundamental research. Focused on fintech,
-                    AI, and next-generation trading tools.
+                    Building user-focused products and delivering research-driven insights on public companies.
                   </p>
 
                   {/* Disclaimers */}
                   <div className="border-l-2 border-gray-300 pl-4 space-y-2">
                     <p className="text-xs text-gray-500 font-mono">
-                      <span className="text-yellow-600">⚠</span> Investment
+                      📊 Investment
                       content is for informational purposes only. Not financial
                       advice.
                     </p>
                     <p className="text-xs text-gray-500 font-mono">
-                      <span className="text-blue-600">ℹ</span> All content
+                      ✍️ All content
                       written by me, not AI.
                     </p>
                   </div>

@@ -14,3 +14,5 @@ export { Blockquote, HorizontalRule } from './typography/Blockquote';
 export { Callout } from './Callout';
 export { DataTable } from './DataTable';
 export { StockChart } from './StockChart';
+export { BarChart } from './BarChart';
+export { SankeyChart } from './SankeyChart';

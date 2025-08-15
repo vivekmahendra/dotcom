@@ -12,6 +12,8 @@ import { Blockquote, HorizontalRule } from './typography/Blockquote';
 import { Callout } from './Callout';
 import { DataTable } from './DataTable';
 import { StockChart } from './StockChart';
+import { BarChart } from './BarChart';
+import { SankeyChart } from './SankeyChart';
 import { Newsletter } from '../ui';
 
 /**
@@ -50,6 +52,8 @@ export const mdxComponents: MDXComponents = {
   Callout,
   DataTable,
   StockChart,
+  BarChart,
+  SankeyChart,
   Newsletter,
 };
 
