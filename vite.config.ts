@@ -20,4 +20,11 @@ export default defineConfig({
     reactRouter(), 
     tsconfigPaths()
   ],
+  server: {
+    allowedHosts: [
+      "localhost",
+      ".ngrok-free.app",
+      ".ngrok.io"
+    ]
+  }
 });

@@ -1,26 +1,5 @@
 import type { Route } from "./+types/about";
 import { PageHeader } from "../components/layouts";
-import { Canvas } from '@react-three/fiber';
-import { useFrame } from '@react-three/fiber';
-import { useRef } from 'react';
-
-function RotatingCube() {
-  const meshRef = useRef<any>(null);
-  
-  useFrame((_, delta) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.x += delta * 0.5;
-      meshRef.current.rotation.y += delta * 0.3;
-    }
-  });
-
-  return (
-    <mesh ref={meshRef}>
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color="#3b82f6" />
-    </mesh>
-  );
-}
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -61,38 +40,78 @@ export default function About() {
           </div>
 
           <div className="mt-20">
+            <h2 className="text-2xl font-light mb-6 text-gray-900">Interesting Links</h2>
+            <div className="space-y-4">
+              {[
+                {
+                  name: "Paul Graham Essays",
+                  url: "http://paulgraham.com/articles.html",
+                  description: "Thoughtful essays on startups, programming, and life"
+                },
+                {
+                  name: "Stratechery",
+                  url: "https://stratechery.com",
+                  description: "Daily analysis of the strategy and business side of technology"
+                },
+                {
+                  name: "Papers We Love",
+                  url: "https://paperswelove.org",
+                  description: "A repository of academic computer science papers and a community who loves reading them"
+                },
+                {
+                  name: "Hacker News",
+                  url: "https://news.ycombinator.com",
+                  description: "Social news website focusing on computer science and entrepreneurship"
+                },
+                {
+                  name: "The Pragmatic Engineer",
+                  url: "https://blog.pragmaticengineer.com",
+                  description: "In-depth articles about the tech industry and engineering culture"
+                },
+                {
+                  name: "Acquired Podcast",
+                  url: "https://acquired.fm",
+                  description: "Deep dives into the stories and strategies behind great companies"
+                }
+              ].map((link, i) => (
+                <div key={i} className="border-l-2 border-gray-200 pl-4 hover:border-gray-400 transition-colors">
+                  <a 
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-lg font-medium text-blue-600 hover:text-blue-800 transition-colors"
+                  >
+                    {link.name} →
+                  </a>
+                  <p className="text-sm text-gray-600 mt-1">{link.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-20">
             <h2 className="text-2xl font-light mb-6 text-gray-900">Gallery</h2>
             <div className="grid grid-cols-3 gap-3">
               {[
-                { type: 'image', src: 'https://picsum.photos/300' },
-                { type: '3d', content: '3D Model' },
-                { type: 'image', src: 'https://picsum.photos/300?random=2' },
-                { type: 'image', src: 'https://picsum.photos/300?random=3' },
-                { type: '3d', content: '3D Print' },
-                { type: 'image', src: 'https://picsum.photos/300?random=4' },
-                { type: '3d', content: '3D Model' },
-                { type: 'image', src: 'https://picsum.photos/300?random=5' },
-                { type: 'image', src: 'https://picsum.photos/300?random=6' }
-              ].map((item, i) => (
+                'https://picsum.photos/300',
+                'https://picsum.photos/300?random=2',
+                'https://picsum.photos/300?random=3',
+                'https://picsum.photos/300?random=4',
+                'https://picsum.photos/300?random=5',
+                'https://picsum.photos/300?random=6',
+                'https://picsum.photos/300?random=7',
+                'https://picsum.photos/300?random=8',
+                'https://picsum.photos/300?random=9'
+              ].map((src, i) => (
                 <div
                   key={i}
                   className="aspect-square bg-gray-50 rounded hover:bg-gray-100 transition-colors overflow-hidden shadow-sm"
                 >
-                  {item.type === 'image' ? (
-                    <img 
-                      src={item.src} 
-                      alt={`Gallery item ${i + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-white">
-                      <Canvas camera={{ position: [2, 2, 2] }}>
-                        <ambientLight intensity={0.5} />
-                        <directionalLight position={[2, 2, 5]} intensity={1} />
-                        <RotatingCube />
-                      </Canvas>
-                    </div>
-                  )}
+                  <img 
+                    src={src} 
+                    alt={`Gallery item ${i + 1}`}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               ))}
             </div>

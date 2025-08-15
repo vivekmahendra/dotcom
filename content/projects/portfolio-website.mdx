@@ -1,73 +1,108 @@
 ---
-name: "Modern Portfolio Website"
-description: "React Router v7 portfolio with MDX content system, interactive financial charts, and mobile-optimized 3D elements"
+name: "vivekmahendra.com"
+description: "Personal website with markdown-based content and interactive visualizations"
 link: "https://github.com/vivekmahendra/personal-website"
 date: "2024-03-15"
-technologies: ["React Router v7", "TypeScript", "MDX", "React Three Fiber", "Tailwind CSS", "Visx"]
+technologies:
+  ["typescript", "react", "react-router", "tailwindcss", "mdx", "visx", "d3"]
 ---
 
-# Modern Portfolio Website
+# Personal Portfolio Website
 
-A React Router v7 portfolio showcasing financial analysis and technical projects through an MDX-powered content system with interactive data visualizations and 3D elements.
+This is my personal portfolio website built with modern web technologies, focusing on performance, maintainability, and clean design. The site serves as both a showcase of my work and a platform for sharing ideas through a built-in blog.
 
-## Technical Implementation
+## Architecture Overview
 
-**Architecture**: Server-side rendered React Router v7 application with TypeScript, using MDX for content management and dynamic route generation from markdown files.
+The application is built on **React Router v7** (the evolution of Remix), providing full-stack capabilities with file-based routing and server-side rendering. The content management system uses **MDX** files for blog posts and project descriptions, allowing for rich content with embedded React components.
 
-**Key Components**:
-- **SankeyChart**: Interactive financial flow diagrams using Visx (@visx/sankey) with mobile-first responsive design, featuring Disney Q3 FY25 data visualization with ultra-compact mobile layouts (10px nodes, 85% thinner connections)
-- **StockChart**: Real-time financial data visualization with candlestick charts
-- **3D Models**: React Three Fiber components including rotating cubes with proper SSR hydration
-- **MDX System**: Custom component library (Callout, DataTable, Newsletter) for rich content creation
+The design philosophy emphasizes minimalism and performance:
+- Clean, professional typography using system fonts
+- Tailwind CSS for consistent, utility-first styling
+- Subtle animations that enhance UX without being distracting
+- Mobile-first responsive design
+- Fast build times and optimal loading performance
 
-**Mobile Optimization**: Selective text rendering, responsive spacing (gap-12 → gap-3), and performance-optimized 3D scenes maintaining 60fps on mobile devices.
+## Key Technical Features
 
-**Content Structure**:
+### Content-First Architecture
+All blog posts and project descriptions are written in MDX, stored in the `/content` directory. This approach provides the best of both worlds: the simplicity of Markdown with the power of React components for interactive elements like charts and code snippets.
 
-```
-content/
-├── ideas/                    # Investment analysis posts
-│   ├── disney-stock-analysis.mdx
-│   └── lululemon-stock-analysis.mdx
-└── projects/                 # Technical project showcases
-    └── portfolio-website.mdx
+### Component Organization
+The codebase follows a clear component hierarchy:
+- `/layouts` - Reusable layout components
+- `/home` - Home page specific sections
+- `/ui` - General UI components
+- `/mdx` - Components designed for use within MDX content
+- `/react-bits` - Third-party animated components
 
-app/
-├── components/
-│   ├── mdx/                  # Custom MDX components
-│   │   ├── SankeyChart.tsx   # Financial flow diagrams
-│   │   ├── DataTable.tsx     # Responsive data tables
-│   │   └── CodeSnippet.tsx   # Syntax highlighted code
-│   └── layouts/              # Page layout components
-└── routes/                   # File-based routing
-```
-
-**Performance**: Achieves 96+ Lighthouse scores through code splitting, lazy-loaded 3D assets, and aggressive caching strategies.
-
-## Re-engineering Specification
+### Performance Optimizations
+- Vite for fast development and optimized production builds
+- Dynamic imports for code splitting
+- Responsive images and lazy loading
+- Minimal JavaScript bundle size
 
 **Core Implementation Examples**:
 
-<CodeSnippet title="SankeyChart Mobile Optimization" filename="SankeyChart.tsx">
-{`// Mobile-first responsive design with ultra-compact layouts
-const getResponsiveProps = (width: number) => {
-  if (width < 640) { // Mobile - Ultra-professional & compact
-    return {
-      margin: { top: 12, right: 50, bottom: 12, left: 50 },
-      nodeWidth: 10,
-      nodePadding: 6,
-      fontSize: { label: 10, value: 8 }
-    };
-  }
-  // Desktop configurations...
-};
+<CodeSnippet title="React Router v7 Layout Structure" filename="Layout.tsx">
+{`// Main app layout with mobile-responsive navigation
+export function Layout({ children }: { children: React.ReactNode }) {
+  const location = useLocation();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-// 85% thinner connecting segments for mobile
-strokeWidth={width < 640 ? Math.max(link.width * 0.15, 0.3) : link.width}`}
+  return (
+    <div className="min-h-screen bg-white text-black flex flex-col">
+      <header className="border-b border-gray-200">
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex space-x-8">
+          {navigation.map((item) => (
+            <Link
+              to={item.href}
+              className={\`transition-colors \${
+                location.pathname === item.href
+                  ? "text-black"
+                  : "text-gray-500 hover:text-black"
+              }\`}
+            >
+              {item.name}
+            </Link>
+          ))}
+        </nav>
+        
+        {/* Animated mobile menu with staggered transitions */}
+        <div className={\`md:hidden overflow-hidden transition-all duration-300 \${
+          mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+        }\`}>
+          {/* Menu items with cascading animation delays */}
+        </div>
+      </header>
+      
+      <main className="flex-grow">{children}</main>
+      <footer className="border-t border-gray-200 mt-auto">
+        Made in Phoenix 🌵
+      </footer>
+    </div>
+  );
+}`}
 </CodeSnippet>
 
-<CodeSnippet title="MDX Content Routing" filename="routes.ts">
-{`// Automatic route generation from MDX files
+The layout component demonstrates several key patterns: a sticky header with conditional styling based on the current route, an animated mobile menu with staggered transitions, and a flexbox layout that ensures the footer stays at the bottom. The mobile menu uses CSS transforms and opacity for smooth animations.
+
+<CodeSnippet title="MDX Content Management" filename="content.ts">
+{`// Dynamic content loading with TypeScript support
+export function getIdeas() {
+  const ideas = import.meta.glob('../content/ideas/*.mdx', { eager: true });
+  
+  return Object.entries(ideas)
+    .map(([path, module]) => ({
+      slug: path.replace('../content/ideas/', '').replace('.mdx', ''),
+      title: module.frontmatter.title,
+      date: module.frontmatter.date,
+      excerpt: module.frontmatter.excerpt,
+    }))
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+}
+
+// Route loader for individual posts
 export async function loader({ params }) {
   const { slug } = params;
   const content = await import(\`../content/ideas/\${slug}.mdx\`);
@@ -79,12 +114,142 @@ export async function loader({ params }) {
 }`}
 </CodeSnippet>
 
-**Rebuild Architecture**:
-1. React Router v7 + TypeScript + Vite for SSR and fast development
-2. MDX with frontmatter routing (`content/{type}/*.mdx` → `/{type}/[slug]`)
-3. Visx for financial visualizations with mobile breakpoints
-4. React Three Fiber with SSR-compatible conditional rendering
-5. Tailwind CSS design system with responsive utilities
-6. Custom component library (CodeSnippet, SankeyChart, DataTable)
+This content management system uses Vite's `import.meta.glob` to automatically discover and import MDX files at build time. The frontmatter is extracted for metadata like titles and dates, while the content is dynamically loaded in route loaders. This approach eliminates the need for a traditional CMS while maintaining type safety.
 
-This implementation demonstrates modern web development patterns while maintaining exceptional performance and mobile-first design principles.
+<CodeSnippet title="Vite Configuration" filename="vite.config.ts">
+{`// Modern build setup with MDX and ngrok support
+export default defineConfig({
+  plugins: [
+    tailwindcss(), 
+    mdx({
+      jsxImportSource: "react",
+      providerImportSource: "@mdx-js/react",
+      remarkPlugins: [
+        remarkFrontmatter,
+        [remarkMdxFrontmatter, { name: "frontmatter" }]
+      ],
+    }),
+    reactRouter(), 
+    tsconfigPaths()
+  ],
+  server: {
+    allowedHosts: [
+      "localhost",
+      ".ngrok-free.app", // Support for ngrok tunneling
+      ".ngrok.io"
+    ]
+  }
+});`}
+</CodeSnippet>
+
+The Vite configuration showcases the modern build pipeline. The MDX plugin handles frontmatter extraction and JSX compilation, while the ngrok allowedHosts configuration enables easy local development with external access for testing on mobile devices.
+
+<CodeSnippet title="Animated Components with React Bits" filename="HomePage.tsx">
+{`// LetterGlitch background with DecryptedText header
+import { LetterGlitch, DecryptedText } from "../components/react-bits";
+
+export default function Home() {
+  return (
+    <div className="bg-white text-black overflow-x-hidden">
+      {/* Full-width animated background */}
+      <div className="relative overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <LetterGlitch
+            glitchColors={["#f0f0f0", "#f4f4f4", "#eeeeee"]}
+            glitchSpeed={500}
+            smooth={true}
+            outerVignette={false}
+            centerVignette={false}
+          />
+        </div>
+
+        <div className="container mx-auto px-6 relative z-10">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extralight">
+            <DecryptedText 
+              text="Hello, I'm Vivek" 
+              animateOn="view" 
+              revealDirection="start" 
+              speed={100}
+            />
+          </h1>
+        </div>
+      </div>
+    </div>
+  );
+}`}
+</CodeSnippet>
+
+The home page demonstrates layered animations using React Bits components. The LetterGlitch provides a subtle animated background that doesn't interfere with readability, while DecryptedText creates an engaging reveal effect for the main heading. The `overflow-x-hidden` class prevents horizontal scrolling issues on mobile.
+
+<CodeSnippet title="Reusable Page Header Component" filename="PageHeader.tsx">
+{`// Simple, consistent page headers across all routes
+interface PageHeaderProps {
+  title: string;
+}
+
+export function PageHeader({ title }: PageHeaderProps) {
+  return (
+    <div className="mb-16">
+      <h1 className="text-4xl font-light">{title}</h1>
+    </div>
+  );
+}
+
+// Usage in route components
+import { PageHeader } from "../components/layouts";
+
+export default function About() {
+  return (
+    <div className="bg-white text-black">
+      <div className="container mx-auto px-6 py-20">
+        <PageHeader title="About" />
+        {/* Page content */}
+      </div>
+    </div>
+  );
+}`}
+</CodeSnippet>
+
+This demonstrates the DRY principle applied to UI components. Rather than repeating header markup across pages, a single reusable component ensures consistency. The interface provides type safety while keeping the API minimal. This pattern makes global design changes simple to implement.
+
+<CodeSnippet title="Arrow Animation Micro-Interaction" filename="LinkAnimations.tsx">
+{`// Consistent hover animations across all arrow links
+<Link 
+  to="/projects"
+  className="group px-4 py-1 text-sm border border-gray-300 rounded-full hover:bg-gray-50 transition-colors"
+>
+  View all <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+</Link>
+
+<Link 
+  to={\`/ideas/\${post.slug}\`}
+  className="group text-sm text-gray-600 hover:text-black transition-colors inline-block"
+>
+  View Article <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+</Link>
+
+// Applied consistently across home sections, project cards, and article links`}
+</CodeSnippet>
+
+These micro-interactions add polish without overwhelming the user. The arrow translate animation provides immediate feedback on hover, while the group/group-hover pattern ensures the animation only affects the arrow, not the entire link. This creates a cohesive experience across all navigation elements.
+
+## Development Experience
+
+The development setup prioritizes fast feedback loops and maintainability:
+
+- **Hot module replacement** via <ShinyLink href="https://vitejs.dev">Vite</ShinyLink> for instant updates during development
+- **TypeScript** throughout for type safety and better IDE support
+- **Consistent code organization** making features easy to locate and modify
+- **Component-driven development** enabling rapid UI iteration
+
+Built with modern tools like <ShinyLink href="https://reactrouter.com">React Router v7</ShinyLink> and <ShinyLink href="https://tailwindcss.com">Tailwind CSS</ShinyLink>.
+
+## Performance Considerations
+
+The site achieves excellent Core Web Vitals through several optimizations:
+- Server-side rendering for fast initial page loads
+- Minimal JavaScript bundle sizes through code splitting
+- Optimized images and lazy loading
+- Efficient CSS delivery via Tailwind's purging
+
+This architecture strikes a balance between developer experience and user performance, making it both enjoyable to work with and fast for end users.

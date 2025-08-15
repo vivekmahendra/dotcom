@@ -9,6 +9,7 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import "./styles/animations.css";
 import { Layout as AppLayout } from "./components/layouts";
 
 export const links: Route.LinksFunction = () => [

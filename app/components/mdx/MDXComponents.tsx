@@ -15,7 +15,7 @@ import { StockChart } from './StockChart';
 import { BarChart } from './BarChart';
 import { SankeyChart } from './SankeyChart';
 import { CodeSnippet } from './CodeSnippet';
-import { Newsletter } from '../ui';
+import { Newsletter, ShinyLink } from '../ui';
 
 /**
  * Centralized MDX component mapping
@@ -57,6 +57,7 @@ export const mdxComponents: MDXComponents = {
   SankeyChart,
   CodeSnippet,
   Newsletter,
+  ShinyLink,
 };
 
 /**
