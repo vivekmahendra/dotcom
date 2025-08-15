@@ -16,13 +16,13 @@ import { localPoint } from '@visx/event';
 const DISNEY_FINANCIAL_DATA = {
   nodes: [
     // Entertainment Sub-Components (Far Left)
-    { name: 'Linear Networks', id: 'linear', category: 'source' as const, value: 2.3, yoyChange: '(15%) Y/Y' },
-    { name: 'Direct to Consumer', id: 'dtc', category: 'source' as const, value: 6.2, yoyChange: '+6% Y/Y' },
-    { name: 'Content Sales & Licensing', id: 'content', category: 'source' as const, value: 2.3, yoyChange: '+7% Y/Y' },
+    { name: 'Linear', id: 'linear', category: 'source' as const, value: 2.3, yoyChange: '(15%) Y/Y' },
+    { name: 'DTC', id: 'dtc', category: 'source' as const, value: 6.2, yoyChange: '+6% Y/Y' },
+    { name: 'Licensing', id: 'content', category: 'source' as const, value: 2.3, yoyChange: '+7% Y/Y' },
     
     // Experiences Sub-Components (Far Left)
-    { name: 'Parks & Experiences', id: 'parks', category: 'source' as const, value: 8.1, yoyChange: '+9% Y/Y' },
-    { name: 'Consumer Products', id: 'products', category: 'source' as const, value: 1.0, yoyChange: '+3% Y/Y' },
+    { name: 'Experiences', id: 'parks', category: 'source' as const, value: 8.1, yoyChange: '+9% Y/Y' },
+    { name: 'Consumer', id: 'products', category: 'source' as const, value: 1.0, yoyChange: '+3% Y/Y' },
     
     // Sports (Direct)
     { name: 'Sports', id: 'sports-direct', category: 'source' as const, value: 4.3, yoyChange: '(5%) Y/Y' },
@@ -107,21 +107,21 @@ const formatCurrency = (value: number) => `$${value.toFixed(1)}B`;
 const getNodeColor = (category: string, id: string) => {
   switch (category) {
     case 'source':
-      if (id.includes('linear')) return '#3b82f6'; // Blue
-      if (id.includes('dtc')) return '#0ea5e9'; // Sky blue  
-      if (id.includes('content')) return '#06b6d4'; // Cyan
-      if (id.includes('sports')) return '#ef4444'; // Red
-      if (id.includes('parks')) return '#10b981'; // Emerald
-      if (id.includes('products')) return '#8b5cf6'; // Purple
+      // Entertainment sources: all blue
+      if (id.includes('linear') || id.includes('dtc') || id.includes('content')) return '#3b82f6'; // Blue
+      // Experiences sources: cyan
+      if (id.includes('parks') || id.includes('products')) return '#06b6d4'; // Cyan
+      // Sports: yellow
+      if (id.includes('sports')) return '#f59e0b'; // Yellow
       return '#6b7280';
     case 'intermediate':
       if (id.includes('entertainment')) return '#1e40af'; // Dark blue
-      if (id.includes('experiences')) return '#059669'; // Dark emerald
+      if (id.includes('experiences')) return '#0891b2'; // Dark cyan
       return '#4b5563'; // Gray
     case 'center':
       return '#1f2937'; // Dark gray
     case 'revenue':
-      return '#16a34a'; // Green for revenue
+      return '#4b5563'; // Dark gray (not green)
     case 'elimination':
       return '#dc2626'; // Red for elimination
     case 'expense':
@@ -129,10 +129,7 @@ const getNodeColor = (category: string, id: string) => {
     case 'profit':
       return '#22c55e'; // Green for operating profit
     case 'target':
-      if (id.includes('entertainment')) return '#3b82f6'; // Blue
-      if (id.includes('sports')) return '#ef4444'; // Red
-      if (id.includes('experiences')) return '#06b6d4'; // Cyan
-      return '#6b7280';
+      return '#22c55e'; // Green for all final results (profits)
     default:
       return '#6b7280';
   }
@@ -159,7 +156,40 @@ export function SankeyChart({
     hideTooltip,
   } = useTooltip<string>();
 
-  const margin = { top: 30, right: 120, bottom: 30, left: 120 };
+  // Responsive margins and sizing
+  const getResponsiveProps = (width: number) => {
+    if (width < 640) { // Mobile
+      return {
+        margin: { top: 20, right: 80, bottom: 20, left: 80 },
+        height: Math.max(height, 500),
+        nodeWidth: 16,
+        nodePadding: 12,
+        fontSize: { label: 12, value: 10 }
+      };
+    } else if (width < 768) { // Tablet
+      return {
+        margin: { top: 25, right: 100, bottom: 25, left: 100 },
+        height: Math.max(height, 450),
+        nodeWidth: 20,
+        nodePadding: 16,
+        fontSize: { label: 12, value: 10 }
+      };
+    } else { // Desktop
+      return {
+        margin: { top: 30, right: 120, bottom: 30, left: 120 },
+        height: height,
+        nodeWidth: 24,
+        nodePadding: 20,
+        fontSize: { label: 12, value: 10 }
+      };
+    }
+  };
+
+  // Determine if node should show text on mobile
+  const shouldShowTextOnMobile = (node: NodeData) => {
+    // Show text for source nodes, target (final result) nodes, and expense nodes
+    return node.category === 'source' || node.category === 'target' || node.category === 'expense';
+  };
 
   return (
     <div className="my-8">
@@ -175,20 +205,24 @@ export function SankeyChart({
       <div className="border border-gray-300 rounded-sm bg-white shadow-sm relative">
         <ParentSize>
           {({ width }) => {
-            const innerWidth = width - margin.left - margin.right;
-            const innerHeight = height - margin.top - margin.bottom;
+            const responsive = getResponsiveProps(width);
+            const innerWidth = width - responsive.margin.left - responsive.margin.right;
+            const innerHeight = responsive.height - responsive.margin.top - responsive.margin.bottom;
 
-            if (width < 400) return null;
+            if (width < 320) return null; // Very small screens
 
             return (
-              <div onMouseLeave={hideTooltip}>
-                <svg width={width} height={height}>
-                  <Group left={margin.left} top={margin.top}>
+              <div 
+                onMouseLeave={hideTooltip}
+                onTouchEnd={hideTooltip}
+              >
+                <svg width={width} height={responsive.height}>
+                  <Group left={responsive.margin.left} top={responsive.margin.top}>
                     <Sankey<NodeData, LinkData>
                       root={data}
                       size={[innerWidth, innerHeight]}
-                      nodeWidth={24}
-                      nodePadding={20}
+                      nodeWidth={responsive.nodeWidth}
+                      nodePadding={responsive.nodePadding}
                       nodeAlign={sankeyJustify}
                       iterations={6}
                     >
@@ -208,7 +242,7 @@ export function SankeyChart({
                                   path={createPath}
                                   fill="transparent"
                                   stroke={linkColor}
-                                  strokeWidth={link.width}
+                                  strokeWidth={Math.max(link.width, width < 640 ? 3 : 1)}
                                   strokeOpacity={0.6}
                                   onMouseMove={(event) => {
                                     const coords = localPoint(
@@ -221,7 +255,19 @@ export function SankeyChart({
                                       tooltipLeft: (coords?.x ?? 0) + 10,
                                     });
                                   }}
+                                  onTouchStart={(event) => {
+                                    const coords = localPoint(
+                                      (event.target as SVGElement).ownerSVGElement || event.target as SVGElement,
+                                      event.touches[0],
+                                    );
+                                    showTooltip({
+                                      tooltipData: `${sourceNode.name} → ${targetNode.name}: ${formatCurrency(link.value)}`,
+                                      tooltipTop: (coords?.y ?? 0) - 30,
+                                      tooltipLeft: (coords?.x ?? 0) - 50,
+                                    });
+                                  }}
                                   onMouseLeave={hideTooltip}
+                                  onTouchEnd={hideTooltip}
                                   className="hover:stroke-opacity-80 transition-all duration-150 cursor-pointer"
                                 />
                               );
@@ -244,6 +290,10 @@ export function SankeyChart({
                                     radius={4}
                                     fill={nodeColor}
                                     className="hover:brightness-110 transition-all duration-150 cursor-pointer"
+                                    style={{
+                                      minWidth: width < 640 ? '32px' : 'auto',
+                                      minHeight: width < 640 ? '32px' : 'auto'
+                                    }}
                                     onMouseMove={(event) => {
                                       const coords = localPoint(
                                         (event.target as SVGElement).ownerSVGElement || event.target as SVGElement,
@@ -262,38 +312,61 @@ export function SankeyChart({
                                         tooltipLeft: (coords?.x ?? 0) + 10,
                                       });
                                     }}
+                                    onTouchStart={(event) => {
+                                      const coords = localPoint(
+                                        (event.target as SVGElement).ownerSVGElement || event.target as SVGElement,
+                                        event.touches[0],
+                                      );
+                                      let tooltipContent = `${node.name}: ${formatCurrency(node.value)}`;
+                                      if (node.margin) {
+                                        tooltipContent += ` (${node.margin}% margin)`;
+                                      }
+                                      if (node.yoyChange) {
+                                        tooltipContent += ` ${node.yoyChange}`;
+                                      }
+                                      showTooltip({
+                                        tooltipData: tooltipContent,
+                                        tooltipTop: (coords?.y ?? 0) - 40,
+                                        tooltipLeft: (coords?.x ?? 0) - 50,
+                                      });
+                                    }}
                                     onMouseLeave={hideTooltip}
+                                    onTouchEnd={hideTooltip}
                                   />
                                   
-                                  {/* Node Labels */}
-                                  <text
-                                    x={isCenter ? ((node.x0 ?? 0) + (node.x1 ?? 0)) / 2 : (node.category === 'source' || node.category === 'intermediate') ? (node.x0 ?? 0) - 8 : (node.x1 ?? 0) + 8}
-                                    y={((node.y0 ?? 0) + (node.y1 ?? 0)) / 2}
-                                    dy="0.35em"
-                                    fontSize={isCenter ? 14 : 12}
-                                    fontWeight={isCenter ? 'bold' : 'medium'}
-                                    fill={isCenter ? '#1f2937' : (node.category === 'elimination' || node.category === 'expense') ? '#dc2626' : '#374151'}
-                                    textAnchor={isCenter ? 'middle' : (node.category === 'source' || node.category === 'intermediate') ? 'end' : 'start'}
-                                    className="font-sans pointer-events-none"
-                                  >
-                                    {isCenter ? node.name : node.name}
-                                  </text>
+                                  {/* Node Labels - Conditional rendering for mobile */}
+                                  {(width >= 640 || shouldShowTextOnMobile(node)) && (
+                                    <text
+                                      x={isCenter ? ((node.x0 ?? 0) + (node.x1 ?? 0)) / 2 : (node.category === 'source' || node.category === 'intermediate') ? (node.x0 ?? 0) - 8 : (node.x1 ?? 0) + 8}
+                                      y={((node.y0 ?? 0) + (node.y1 ?? 0)) / 2}
+                                      dy="0.35em"
+                                      fontSize={isCenter ? responsive.fontSize.label + 2 : responsive.fontSize.label}
+                                      fontWeight={isCenter ? 'bold' : 'medium'}
+                                      fill={isCenter ? '#1f2937' : (node.category === 'elimination' || node.category === 'expense') ? '#dc2626' : '#374151'}
+                                      textAnchor={isCenter ? 'middle' : (node.category === 'source' || node.category === 'intermediate') ? 'end' : 'start'}
+                                      className="font-sans pointer-events-none"
+                                    >
+                                      {isCenter ? node.name : (width < 640 && node.name.length > 12 ? node.name.substring(0, 12) + '...' : node.name)}
+                                    </text>
+                                  )}
                                   
-                                  {/* Value Labels */}
-                                  <text
-                                    x={isCenter ? ((node.x0 ?? 0) + (node.x1 ?? 0)) / 2 : (node.category === 'source' || node.category === 'intermediate') ? (node.x0 ?? 0) - 8 : (node.x1 ?? 0) + 8}
-                                    y={((node.y0 ?? 0) + (node.y1 ?? 0)) / 2 + (isCenter ? 16 : 14)}
-                                    dy="0.35em"
-                                    fontSize={10}
-                                    fontWeight="medium"
-                                    fill="#6b7280"
-                                    textAnchor={isCenter ? 'middle' : (node.category === 'source' || node.category === 'intermediate') ? 'end' : 'start'}
-                                    className="font-mono pointer-events-none"
-                                  >
-                                    {(node.category === 'elimination' || node.category === 'expense') ? `(${formatCurrency(node.value)})` : formatCurrency(node.value)}
-                                    {node.margin && ` (${node.margin}%)`}
-                                    {node.yoyChange && !node.margin && ` ${node.yoyChange}`}
-                                  </text>
+                                  {/* Value Labels - Conditional rendering for mobile */}
+                                  {(width >= 640 || shouldShowTextOnMobile(node)) && (
+                                    <text
+                                      x={isCenter ? ((node.x0 ?? 0) + (node.x1 ?? 0)) / 2 : (node.category === 'source' || node.category === 'intermediate') ? (node.x0 ?? 0) - 8 : (node.x1 ?? 0) + 8}
+                                      y={((node.y0 ?? 0) + (node.y1 ?? 0)) / 2 + (isCenter ? 16 : 14)}
+                                      dy="0.35em"
+                                      fontSize={responsive.fontSize.value}
+                                      fontWeight="medium"
+                                      fill="#6b7280"
+                                      textAnchor={isCenter ? 'middle' : (node.category === 'source' || node.category === 'intermediate') ? 'end' : 'start'}
+                                      className="font-mono pointer-events-none"
+                                    >
+                                      {(node.category === 'elimination' || node.category === 'expense') ? `(${formatCurrency(node.value)})` : formatCurrency(node.value)}
+                                      {node.margin && width >= 640 && ` (${node.margin}%)`}
+                                      {node.yoyChange && !node.margin && width >= 640 && ` ${node.yoyChange}`}
+                                    </text>
+                                  )}
                                 </g>
                               );
                             })}
