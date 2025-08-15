@@ -1,0 +1,74 @@
+[
+  {
+    "filename": "photo-1.jpg",
+    "coordinates": {
+      "lat": 38.744102777777776,
+      "lng": -109.49999166666667
+    },
+    "date": "March 09, 2025",
+    "note": "Extracted from EXIF"
+  },
+  {
+    "filename": "photo-2.heic",
+    "coordinates": null,
+    "date": null,
+    "note": "HEIC format requires special handling"
+  },
+  {
+    "filename": "photo-3.jpg",
+    "coordinates": {
+      "lat": 44.43125555555555,
+      "lng": -67.978325
+    },
+    "date": "October 10, 2023",
+    "note": "Extracted from EXIF"
+  },
+  {
+    "filename": "photo-4.heic",
+    "coordinates": null,
+    "date": null,
+    "note": "HEIC format requires special handling"
+  },
+  {
+    "filename": "photo-5.jpg",
+    "coordinates": {
+      "lat": 39.00254722222222,
+      "lng": -114.30434444444444
+    },
+    "date": "May 22, 2022",
+    "note": "Extracted from EXIF"
+  },
+  {
+    "filename": "photo-6.jpg",
+    "coordinates": {
+      "lat": 36.483047222222226,
+      "lng": -114.52239166666666
+    },
+    "date": "May 23, 2022",
+    "note": "Extracted from EXIF"
+  },
+  {
+    "filename": "photo-7.jpg",
+    "coordinates": {
+      "lat": 36.105694444444445,
+      "lng": -109.3553861111111
+    },
+    "date": "October 08, 2022",
+    "note": "Extracted from EXIF"
+  },
+  {
+    "filename": "photo-8.jpg",
+    "coordinates": {
+      "lat": 31.99551388888889,
+      "lng": -109.32315833333332
+    },
+    "date": "February 26, 2022",
+    "note": "Extracted from EXIF"
+  },
+  {
+    "filename": "photo-9.heic",
+    "coordinates": null,
+    "date": null,
+    "note": "HEIC format requires special handling"
+  }
+]
