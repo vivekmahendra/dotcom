@@ -1,7 +1,7 @@
 import type { Route } from "./+types/_index";
 import { HomeIdeasSection } from "../components/HomeIdeasSection";
 import { HomeProjectsSection } from "../components/HomeProjectsSection";
-import LetterGlitch from "../components/LetterGlitch/LetterGlitch";
+import { LetterGlitch } from "../components/react-bits";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -12,11 +12,11 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
   return (
-    <div className="bg-white text-black">
+    <div className="bg-white text-black overflow-x-hidden">
       {/* Full-width Header Section with LetterGlitch Background */}
-      <div className="relative">
+      <div className="relative overflow-hidden">
         {/* LetterGlitch Background - fills entire background */}
-        <div className="absolute inset-0 z-0 w-dvw  ">
+        <div className="absolute inset-0 z-0">
           <LetterGlitch
             glitchColors={["#f0f0f0", "#f4f4f4", "#eeeeee"]}
             glitchSpeed={500}
@@ -88,7 +88,6 @@ export default function Home() {
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
           <HomeIdeasSection />
-          <div className="border-t border-gray-200"></div>
           <HomeProjectsSection />
         </div>
       </div>

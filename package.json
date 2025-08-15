@@ -24,7 +24,7 @@
     "react-router": "^7.7.1",
     "remark-frontmatter": "^5.0.0",
     "remark-mdx-frontmatter": "^5.2.0",
-    "three": "^0.179.1"
+    "three": "^0.167.1"
   },
   "devDependencies": {
     "@react-router/dev": "^7.7.1",

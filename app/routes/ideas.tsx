@@ -1,8 +1,7 @@
 import type { Route } from "./+types/ideas";
 import { Link } from "react-router";
 import { Newsletter } from "../components/Newsletter";
-import { PageScene3D } from "../components/PageScene3D";
-import { Suspense } from "react";
+import { PageHeader } from "../components/PageHeader";
 import { getIdeas } from "../utils/content";
 
 export function meta({}: Route.MetaArgs) {
@@ -22,20 +21,7 @@ export default function Ideas() {
       
       <div className="container mx-auto px-6 py-20">
         <div className="max-w-6xl mx-auto">
-          {/* Header with 3D Scene */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            <div className="md:col-span-2">
-              <h1 className="text-4xl font-light mb-4">Ideas</h1>
-              <p className="text-xl text-gray-600">
-                Investment analysis, market insights, and strategic thinking.
-              </p>
-            </div>
-            <div className="h-48 md:h-64">
-              <Suspense fallback={<div className="w-full h-full bg-gray-50 animate-pulse rounded" />}>
-                <PageScene3D modelType="research" enableOrbitControls />
-              </Suspense>
-            </div>
-          </div>
+          <PageHeader title="Ideas" />
           
           <div className="space-y-12">
             {posts.map((post, index) => (
@@ -58,9 +44,9 @@ export default function Ideas() {
                 <p className="text-gray-700 leading-relaxed mb-4">{post.excerpt}</p>
                 <Link 
                   to={`/ideas/${post.slug}`}
-                  className="text-black hover:text-gray-600 transition-colors inline-flex items-center text-sm"
+                  className="group text-sm text-gray-600 hover:text-black transition-colors inline-block"
                 >
-                  Read full article →
+                  Read full article <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
                 </Link>
               </article>
             ))}
