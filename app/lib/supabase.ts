@@ -74,3 +74,15 @@ export function checkSupabaseConnection(): boolean {
     return false;
   }
 }
+
+// Helper function to get public URL for storage files
+export function getStorageUrl(bucket: string, path: string): string {
+  // Use environment variable directly to avoid client-side issues
+  const url = typeof process !== 'undefined' ? process.env.SUPABASE_URL : null;
+  
+  if (!url) {
+    console.warn('Supabase URL not configured, returning placeholder');
+    return `https://picsum.photos/300?random=${Math.floor(Math.random() * 100)}`;
+  }
+  return `${url}/storage/v1/object/public/${bucket}/${path}`;
+}

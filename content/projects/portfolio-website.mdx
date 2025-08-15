@@ -246,6 +246,40 @@ This demonstrates the DRY principle applied to UI components. Rather than repeat
 
 These micro-interactions add polish without overwhelming the user. The arrow translate animation provides immediate feedback on hover, while the group/group-hover pattern ensures the animation only affects the arrow, not the entire link. This creates a cohesive experience across all navigation elements.
 
+<CodeSnippet title="Canvas Confetti Integration" filename="Newsletter.tsx">
+{`// Adding celebration effects with canvas-confetti
+import confetti from "canvas-confetti";
+
+export function Newsletter() {
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+  // Trigger confetti when success modal opens
+  useEffect(() => {
+    if (showSuccessModal) {
+      confetti({
+        particleCount: 50,
+        spread: 60,
+        origin: { y: 0.6 },
+        disableForReducedMotion: true,
+        colors: ['#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FECA57']
+      });
+    }
+  }, [showSuccessModal]);
+
+  return (
+    <Modal 
+      isOpen={showSuccessModal} 
+      onClose={() => setShowSuccessModal(false)}
+      title="Successfully Subscribed! 🎉"
+    >
+      {/* Modal content */}
+    </Modal>
+  );
+}`}
+</CodeSnippet>
+
+The newsletter subscription includes a delightful confetti effect using <ShinyLink href="https://github.com/catdad/canvas-confetti">canvas-confetti</ShinyLink>. When users successfully subscribe, the celebration animation enhances the positive feedback while respecting accessibility preferences through the `disableForReducedMotion` option. The confetti colors are carefully chosen to match the festive party emoji aesthetic, creating a cohesive celebratory experience.
+
 ## Development Experience
 
 The development setup prioritizes fast feedback loops and maintainability:

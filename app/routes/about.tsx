@@ -1,4 +1,5 @@
 import type { Route } from "./+types/about";
+import { useLoaderData } from "react-router";
 import { PageHeader } from "../components/layouts";
 import { Newsletter } from "../components/ui/Newsletter";
 import { handleNewsletterAction } from "../lib/newsletter-action";
@@ -14,7 +15,22 @@ export async function action({ request }: Route.ActionArgs) {
   return handleNewsletterAction(request);
 }
 
+export async function loader() {
+  return {
+    supabaseUrl: process.env.SUPABASE_URL || null
+  };
+}
+
 export default function About() {
+  const { supabaseUrl } = useLoaderData<typeof loader>();
+  
+  const getImageUrl = (filename: string) => {
+    if (!supabaseUrl) {
+      console.warn('Supabase URL not available, using placeholder');
+      return `https://picsum.photos/300?random=${filename.replace(/\D/g, '') || '1'}`;
+    }
+    return `${supabaseUrl}/storage/v1/object/public/website-assets/about/${filename}`;
+  };
   return (
     <div className="bg-white text-black">
       <div className="container mx-auto px-6 py-20">
@@ -26,9 +42,13 @@ export default function About() {
           <div className="prose prose-lg max-w-none mb-12">
             <div className="w-28 h-28 rounded-full overflow-hidden border-2 border-gray-300 float-right ml-6 mb-4 mt-2">
               <img 
-                src="https://picsum.photos/200?random=profile" 
+                src={getImageUrl('profile.jpg')} 
                 alt="Profile"
                 className="w-full h-full object-cover"
+                onError={(e) => {
+                  console.error('Profile image failed to load:', getImageUrl('profile.jpg'));
+                  e.currentTarget.src = 'https://picsum.photos/200?random=profile';
+                }}
               />
             </div>
             
@@ -98,25 +118,19 @@ export default function About() {
           <div className="mt-20">
             <h2 className="text-2xl font-light mb-6 text-gray-900">Gallery</h2>
             <div className="grid grid-cols-3 gap-3">
-              {[
-                'https://picsum.photos/300',
-                'https://picsum.photos/300?random=2',
-                'https://picsum.photos/300?random=3',
-                'https://picsum.photos/300?random=4',
-                'https://picsum.photos/300?random=5',
-                'https://picsum.photos/300?random=6',
-                'https://picsum.photos/300?random=7',
-                'https://picsum.photos/300?random=8',
-                'https://picsum.photos/300?random=9'
-              ].map((src, i) => (
+              {['photo-1.jpg', 'photo-2.heic', 'photo-3.jpg', 'photo-4.heic', 'photo-5.jpg', 'photo-6.jpg', 'photo-7.jpg', 'photo-8.jpg', 'photo-9.heic'].map((filename, i) => (
                 <div
                   key={i}
                   className="aspect-square bg-gray-50 rounded hover:bg-gray-100 transition-colors overflow-hidden shadow-sm"
                 >
                   <img 
-                    src={src} 
+                    src={getImageUrl(filename)} 
                     alt={`Gallery item ${i + 1}`}
                     className="w-full h-full object-cover"
+                    onError={(e) => {
+                      console.error('Gallery image failed to load:', getImageUrl(filename));
+                      e.currentTarget.src = `https://picsum.photos/300?random=${i + 1}`;
+                    }}
                   />
                 </div>
               ))}

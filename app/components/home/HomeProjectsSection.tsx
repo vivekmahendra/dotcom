@@ -27,12 +27,12 @@ export function HomeProjectsSection() {
           >
             <h3 className="text-xl font-medium mb-3">{project.name}</h3>
             <p className="text-gray-600 mb-4">{project.description}</p>
-            <a
-              href={project.link}
+            <Link
+              to={`/projects/${project.slug}`}
               className="group text-sm text-gray-600 hover:text-black transition-colors inline-block"
             >
               View Project <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
-            </a>
+            </Link>
           </div>
         ))}
       </div>
