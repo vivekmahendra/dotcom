@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useFetcher } from "react-router";
 import { Modal } from "./Modal";
+import confetti from "canvas-confetti";
 
 interface NewsletterProps {
   inline?: boolean;
@@ -29,6 +30,19 @@ export function Newsletter({
       setShowSuccessModal(true);
     }
   }, [isSuccess]);
+
+  // Trigger confetti when success modal opens
+  useEffect(() => {
+    if (showSuccessModal) {
+      confetti({
+        particleCount: 50,
+        spread: 60,
+        origin: { y: 0.6 },
+        disableForReducedMotion: true,
+        colors: ['#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FECA57']
+      });
+    }
+  }, [showSuccessModal]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
