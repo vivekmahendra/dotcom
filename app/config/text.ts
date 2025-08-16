@@ -32,7 +32,7 @@ export const TEXT_CONFIG = {
     },
     sections: {
       ideas: {
-        title: "Latest Investment Ideas",
+        title: "Latest Ideas",
         subtitle: "Investment analysis and market insights",
         viewAllText: "View all",
         emptyMessage: "No ideas yet. Check back soon!",
@@ -115,7 +115,7 @@ export const TEXT_CONFIG = {
       content:
         "All investment analyses and recommendations are for informational purposes only and should not be considered as personalized investment advice.",
       disclaimer:
-        "Past performance does not guarantee future results. Always conduct your own research and consult with qualified financial advisors before making investment decisions. The author may hold positions in securities mentioned.",
+        "Past performance does not guarantee future results. Always conduct your own research before making investment decisions. The author may hold positions in securities mentioned.",
     },
     social: {
       email: {
@@ -123,7 +123,7 @@ export const TEXT_CONFIG = {
         label: "Email",
       },
       linkedin: {
-        href: "https://linkedin.com/in/vivekmahendra",
+        href: "https://linkedin.com/in/mahendravivek/",
         label: "LinkedIn",
       },
       twitter: {
@@ -181,16 +181,15 @@ export const TEXT_CONFIG = {
                 "Thoughtful essays on startups, programming, and life",
             },
             {
-              name: "Stratechery",
-              url: "https://stratechery.com",
-              description:
-                "Daily analysis of the strategy and business side of technology",
+              name: "Hacker News",
+              url: "https://news.ycombinator.com/",
+              description: "Tech news aggregator and discussion forum",
             },
             {
-              name: "Acquired Podcast",
-              url: "https://acquired.fm",
+              name: "Dataroma",
+              url: "https://www.dataroma.com/m/home.php",
               description:
-                "Deep dives into the stories and strategies behind great companies",
+                "Superinvestor portfolio tracking and investment research",
             },
           ],
         },
@@ -202,8 +201,8 @@ export const TEXT_CONFIG = {
               author: "Peter Lynch",
             },
             {
-              title: "The Intelligent Investor",
-              author: "Benjamin Graham",
+              title: "Buffett & Munger Unscripted",
+              author: "Alex Morris",
             },
             {
               title: "Poor Charlie's Almanack",

@@ -1,22 +1,55 @@
-FROM node:20-alpine AS development-dependencies-env
-COPY . /app
+# Build stage
+FROM node:20-alpine AS builder
+
+# Set working directory
 WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
 RUN npm ci
 
-FROM node:20-alpine AS production-dependencies-env
-COPY ./package.json package-lock.json /app/
-WORKDIR /app
-RUN npm ci --omit=dev
+# Copy all files
+COPY . .
 
-FROM node:20-alpine AS build-env
-COPY . /app/
-COPY --from=development-dependencies-env /app/node_modules /app/node_modules
-WORKDIR /app
+# Build the application
 RUN npm run build
 
+# Production stage
 FROM node:20-alpine
-COPY ./package.json package-lock.json /app/
-COPY --from=production-dependencies-env /app/node_modules /app/node_modules
-COPY --from=build-env /app/build /app/build
+
+# Install dumb-init for proper signal handling
+RUN apk add --no-cache dumb-init
+
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001
+
+# Set working directory
 WORKDIR /app
-CMD ["npm", "run", "start"]
+
+# Copy package files
+COPY package*.json ./
+
+# Install production dependencies only
+RUN npm ci --only=production && \
+    npm cache clean --force
+
+# Copy built application from builder stage
+COPY --from=builder --chown=nodejs:nodejs /app/build ./build
+
+# Copy start script
+COPY --chown=nodejs:nodejs scripts/start.sh ./scripts/
+
+# Switch to non-root user
+USER nodejs
+
+# Cloud Run sets PORT environment variable
+ENV PORT=3000
+
+# Use dumb-init to handle signals properly
+ENTRYPOINT ["dumb-init", "--"]
+
+# Start the application using the start script
+CMD ["sh", "scripts/start.sh"]

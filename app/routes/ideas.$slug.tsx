@@ -60,6 +60,7 @@ export default function BlogPost() {
       ticker={frontmatter.ticker}
       stockPrice={frontmatter.stockPrice}
       currency={frontmatter.currency}
+      backTo={{ href: "/ideas", label: "Ideas" }}
     >
       <MDXProvider components={mdxComponents}>
         <div className="max-w-none">

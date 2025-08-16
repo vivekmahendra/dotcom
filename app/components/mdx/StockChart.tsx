@@ -260,16 +260,7 @@ export function StockChart({
                         
                         // Set crosshair position to the actual data point
                         const dataX = dateScale(d.date) ?? 0;
-                        console.log('Crosshair debug:', { 
-                          mouseX: point.x,
-                          adjustedX: point.x - 20,
-                          invertedDate: x0,
-                          closestIndex,
-                          date: d.date, 
-                          dataX, 
-                          innerWidth, 
-                          scaleRange: dateScale.range() 
-                        });
+                        // Crosshair position set to actual data point
                         setCrosshairX(dataX);
                         
                         handleTooltip(event, d);

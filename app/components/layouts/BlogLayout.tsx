@@ -1,5 +1,6 @@
 import { Link } from "react-router";
-import { Newsletter } from "../ui";
+import { NewsletterInline } from "../ui";
+import { TEXT_CONFIG } from "../../config/text";
 
 interface BlogLayoutProps {
   title: string;
@@ -90,7 +91,7 @@ export function BlogLayout({
           
           {/* Newsletter Signup */}
           <div className="mt-16">
-            <Newsletter inline />
+            <NewsletterInline />
           </div>
           
           {/* Article Footer */}

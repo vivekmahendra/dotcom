@@ -1,33 +1,26 @@
 import { createClient } from '@supabase/supabase-js';
 
-// Environment variables with validation
+// Environment variables - optional for basic deployment
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-if (!supabaseUrl) {
-  throw new Error(
-    'Missing SUPABASE_URL environment variable. ' +
-    'Please add it to your .env.local file. ' +
-    'Get this from your Supabase project dashboard (Settings > API).'
+// Only create Supabase client if credentials are provided
+export const supabase = supabaseUrl && supabaseServiceRoleKey 
+  ? createClient(supabaseUrl, supabaseServiceRoleKey, {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false,
+      },
+    })
+  : null;
+
+// Log warning in development if Supabase is not configured
+if (!supabase && process.env.NODE_ENV === 'development') {
+  console.warn(
+    'Supabase not configured. Newsletter and image features will use fallbacks. ' +
+    'To enable full features, add SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY to your .env.local file.'
   );
 }
-
-if (!supabaseServiceRoleKey) {
-  throw new Error(
-    'Missing SUPABASE_SERVICE_ROLE_KEY environment variable. ' +
-    'Please add it to your .env.local file. ' +
-    'Get this from your Supabase project dashboard (Settings > API). ' +
-    'Use the service_role key, NOT the anon key for server-side operations.'
-  );
-}
-
-// Create Supabase client with service role key for server-side operations
-export const supabase = createClient(supabaseUrl, supabaseServiceRoleKey, {
-  auth: {
-    autoRefreshToken: false,
-    persistSession: false,
-  },
-});
 
 // Database types for type safety
 export interface DatabaseSubscriber {
@@ -69,7 +62,7 @@ export type Database = {
 // Helper function to check if Supabase is properly configured
 export function checkSupabaseConnection(): boolean {
   try {
-    return !!(supabaseUrl && supabaseServiceRoleKey);
+    return supabase !== null;
   } catch {
     return false;
   }

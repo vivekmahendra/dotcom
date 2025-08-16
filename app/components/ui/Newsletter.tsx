@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useFetcher } from "react-router";
+import { useFetcher, useLocation } from "react-router";
 import { Modal } from "./Modal";
 import confetti from "canvas-confetti";
 
@@ -18,18 +18,19 @@ export function Newsletter({
 }: NewsletterProps) {
   const [email, setEmail] = useState("");
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const location = useLocation();
   const fetcher = useFetcher();
 
-  const isLoading = fetcher.state === "submitting";
+  const isLoading = fetcher.state === "submitting" || fetcher.state === "loading";
   const isSuccess = fetcher.data?.success;
   const error = fetcher.data?.error;
 
   useEffect(() => {
-    if (isSuccess) {
+    if (fetcher.data?.success) {
       setEmail("");
       setShowSuccessModal(true);
     }
-  }, [isSuccess]);
+  }, [fetcher.data]);
 
   // Trigger confetti when success modal opens
   useEffect(() => {
@@ -55,7 +56,10 @@ export function Newsletter({
     e.preventDefault();
     const formData = new FormData();
     formData.append("email", email);
-    fetcher.submit(formData, { method: "POST" });
+    fetcher.submit(formData, { 
+      method: "POST",
+      action: location.pathname 
+    });
   };
 
   if (banner) {
