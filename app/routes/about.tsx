@@ -130,12 +130,15 @@ export default function About() {
   useEffect(() => {
     if (selectedPhotoIndex !== null) {
       // Prevent body scroll when modal is open
-      document.body.style.overflow = 'hidden';
-      
+      document.body.style.overflow = "hidden";
+
       const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === "ArrowLeft" && selectedPhotoIndex > 0) {
           setSelectedPhotoIndex(selectedPhotoIndex - 1);
-        } else if (e.key === "ArrowRight" && selectedPhotoIndex < galleryPhotos.length - 1) {
+        } else if (
+          e.key === "ArrowRight" &&
+          selectedPhotoIndex < galleryPhotos.length - 1
+        ) {
           setSelectedPhotoIndex(selectedPhotoIndex + 1);
         } else if (e.key === "Escape") {
           setSelectedPhotoIndex(null);
@@ -143,15 +146,15 @@ export default function About() {
       };
 
       window.addEventListener("keydown", handleKeyDown);
-      
+
       return () => {
         // Re-enable body scroll when modal closes
-        document.body.style.overflow = 'unset';
+        document.body.style.overflow = "unset";
         window.removeEventListener("keydown", handleKeyDown);
       };
     } else {
       // Ensure scroll is re-enabled when modal is closed
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
   }, [selectedPhotoIndex]);
 
@@ -174,15 +177,15 @@ export default function About() {
           </div>
 
           <div className="prose prose-lg max-w-none mb-12">
-            <div className="w-28 h-28 rounded-full overflow-hidden border-2 border-gray-300 float-right ml-6 mb-4 mt-2">
+            <div className="w-36 h-36 rounded-full overflow-hidden border-2 border-gray-300 float-right ml-6 mb-6 mt-0">
               <img
-                src={getImageUrl("profile.jpg")}
+                src={getImageUrl("profile.png")}
                 alt="Profile"
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   console.error(
                     "Profile image failed to load:",
-                    getImageUrl("profile.jpg")
+                    getImageUrl("profile.png")
                   );
                   e.currentTarget.src =
                     "https://picsum.photos/200?random=profile";
@@ -195,11 +198,6 @@ export default function About() {
               businesses.
             </p>
 
-            <p className="text-gray-700 leading-relaxed mb-6">
-              I read "One Up On Wall Street" in 7th grade and bought AMD stock
-              at $1.80. Sold it at $25. It's now $180. That got me interested in
-              Warren Buffett and Charlie Munger's approach to investing.
-            </p>
 
             <p className="text-gray-700 leading-relaxed mb-8">
               This site is where I put my projects and write about things I'm
@@ -209,71 +207,142 @@ export default function About() {
           </div>
 
           <div className="mt-20">
-            <h2 className="text-2xl font-light mb-6 text-gray-900">
-              Interesting Links
-            </h2>
-            <div className="space-y-4">
-              {[
-                {
-                  name: "Paul Graham Essays",
-                  url: "http://paulgraham.com/articles.html",
-                  description:
-                    "Thoughtful essays on startups, programming, and life",
-                },
-                {
-                  name: "Stratechery",
-                  url: "https://stratechery.com",
-                  description:
-                    "Daily analysis of the strategy and business side of technology",
-                },
-                {
-                  name: "Papers We Love",
-                  url: "https://paperswelove.org",
-                  description:
-                    "A repository of academic computer science papers and a community who loves reading them",
-                },
-                {
-                  name: "Hacker News",
-                  url: "https://news.ycombinator.com",
-                  description:
-                    "Social news website focusing on computer science and entrepreneurship",
-                },
-                {
-                  name: "The Pragmatic Engineer",
-                  url: "https://blog.pragmaticengineer.com",
-                  description:
-                    "In-depth articles about the tech industry and engineering culture",
-                },
-                {
-                  name: "Acquired Podcast",
-                  url: "https://acquired.fm",
-                  description:
-                    "Deep dives into the stories and strategies behind great companies",
-                },
-              ].map((link, i) => (
-                <div
-                  key={i}
-                  className="border-l-2 border-gray-200 pl-4 hover:border-gray-400 transition-colors"
-                >
-                  <a
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-lg font-medium text-blue-600 hover:text-blue-800 transition-colors"
-                  >
-                    {link.name} →
-                  </a>
-                  <p className="text-sm text-gray-600 mt-1">
-                    {link.description}
-                  </p>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+              {/* Links Section */}
+              <div>
+                <h2 className="text-2xl font-light mb-6 text-gray-900">
+                  Links
+                </h2>
+                <div className="space-y-3">
+                  {[
+                    {
+                      name: "Paul Graham Essays",
+                      url: "http://paulgraham.com/articles.html",
+                      description:
+                        "Thoughtful essays on startups, programming, and life",
+                    },
+                    {
+                      name: "Stratechery",
+                      url: "https://stratechery.com",
+                      description:
+                        "Daily analysis of the strategy and business side of technology",
+                    },
+                    {
+                      name: "Papers We Love",
+                      url: "https://paperswelove.org",
+                      description:
+                        "A repository of academic computer science papers and a community who loves reading them",
+                    },
+                    {
+                      name: "Hacker News",
+                      url: "https://news.ycombinator.com",
+                      description:
+                        "Social news website focusing on computer science and entrepreneurship",
+                    },
+                    {
+                      name: "The Pragmatic Engineer",
+                      url: "https://blog.pragmaticengineer.com",
+                      description:
+                        "In-depth articles about the tech industry and engineering culture",
+                    },
+                    {
+                      name: "Acquired Podcast",
+                      url: "https://acquired.fm",
+                      description:
+                        "Deep dives into the stories and strategies behind great companies",
+                    },
+                  ].map((link, i) => (
+                    <div key={i} className="py-2">
+                      <a
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group inline-block"
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="text-base font-medium text-gray-900 group-hover:text-black transition-colors">
+                            {link.name}
+                          </span>
+                          <span className="text-gray-400 group-hover:text-gray-600 transition-all group-hover:translate-x-0.5">
+                            ↗
+                          </span>
+                        </div>
+                        <p className="text-sm text-gray-600 mt-1 group-hover:text-gray-700 transition-colors">
+                          {link.description}
+                        </p>
+                      </a>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
+
+              {/* Reading Section */}
+              <div>
+                <h2 className="text-2xl font-light mb-6 text-gray-900">
+                  Reading
+                </h2>
+                <div className="space-y-3">
+                  {[
+                    {
+                      title: "One Up On Wall Street",
+                      author: "Peter Lynch",
+                      description:
+                        "The book that got me started with investing at age 12",
+                    },
+                    {
+                      title: "The Intelligent Investor",
+                      author: "Benjamin Graham",
+                      description:
+                        "Warren Buffett's favorite book on investing",
+                    },
+                    {
+                      title: "Poor Charlie's Almanack",
+                      author: "Charlie Munger",
+                      description:
+                        "Mental models and wisdom from Berkshire's vice chairman",
+                    },
+                    {
+                      title: "The Innovator's Dilemma",
+                      author: "Clayton Christensen",
+                      description:
+                        "Why great companies fail when faced with disruptive innovation",
+                    },
+                    {
+                      title: "Zero to One",
+                      author: "Peter Thiel",
+                      description: "Building companies that create new things",
+                    },
+                    {
+                      title: "The Hard Thing About Hard Things",
+                      author: "Ben Horowitz",
+                      description:
+                        "Building a business when there are no easy answers",
+                    },
+                  ].map((book, i) => (
+                    <div key={i} className="py-2">
+                      <div className="group">
+                        <div className="flex items-baseline gap-2">
+                          <span className="text-base font-medium text-gray-900">
+                            {book.title}
+                          </span>
+                        </div>
+                        <p className="text-sm text-gray-600 mt-1">
+                          by {book.author}
+                        </p>
+                        <p className="text-sm text-gray-600 mt-1">
+                          {book.description}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="mt-20">
-            <h2 className="text-2xl font-light mb-6 text-gray-900">Gallery</h2>
-            <div className="grid grid-cols-3 gap-3">
+<div className="mt-20">
+            <h2 className="text-2xl font-light mb-6 text-gray-900">Photos</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {galleryPhotos.map((photo, i) => (
                 <div
                   key={i}
@@ -401,7 +470,7 @@ export default function About() {
               <div className="text-xs text-gray-500 mb-2 text-center font-medium">
                 {selectedPhotoIndex + 1} / {galleryPhotos.length}
               </div>
-              
+
               <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
                 <div className="flex-1 min-w-0">
                   <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-1 truncate">
@@ -449,7 +518,9 @@ export default function About() {
                             d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                           />
                         </svg>
-                        <span className="truncate max-w-[150px] sm:max-w-none">{selectedPhoto.location.name}</span>
+                        <span className="truncate max-w-[150px] sm:max-w-none">
+                          {selectedPhoto.location.name}
+                        </span>
                       </div>
                     )}
                   </div>
