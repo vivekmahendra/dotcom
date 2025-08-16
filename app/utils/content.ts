@@ -3,6 +3,9 @@ export interface PostMetadata {
   date: string;
   excerpt: string;
   slug: string;
+  ticker?: string;
+  stockPrice?: number;
+  currency?: string;
 }
 
 export interface ProjectMetadata {
@@ -19,6 +22,10 @@ const ideasModules = import.meta.glob('/content/ideas/*.mdx', {
 }) as Record<string, any>;
 
 const projectsModules = import.meta.glob('/content/projects/*.mdx', {
+  eager: true
+}) as Record<string, any>;
+
+const blogModules = import.meta.glob('/content/blog/*.mdx', {
   eager: true
 }) as Record<string, any>;
 
@@ -55,6 +62,9 @@ export function getIdeas(): PostMetadata[] {
         date: frontmatter.date || new Date().toISOString(),
         excerpt: frontmatter.excerpt || "",
         slug,
+        ticker: frontmatter.ticker,
+        stockPrice: frontmatter.stockPrice,
+        currency: frontmatter.currency || "USD",
       };
     });
     
@@ -62,6 +72,36 @@ export function getIdeas(): PostMetadata[] {
     return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   } catch (error) {
     console.error("Error loading ideas:", error);
+    return [];
+  }
+}
+
+export function getBlog(): PostMetadata[] {
+  try {
+    // Fallback to empty array if no posts exist yet
+    if (Object.keys(blogModules).length === 0) {
+      return [];
+    }
+
+    const posts = Object.entries(blogModules).map(([path, module]) => {
+      const slug = extractSlugFromPath(path);
+      const frontmatter = module?.frontmatter || {};
+      
+      return {
+        title: frontmatter.title || "Untitled",
+        date: frontmatter.date || new Date().toISOString(),
+        excerpt: frontmatter.excerpt || "",
+        slug,
+        ticker: frontmatter.ticker,
+        stockPrice: frontmatter.stockPrice,
+        currency: frontmatter.currency || "USD",
+      };
+    });
+    
+    // Sort by date (newest first)
+    return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  } catch (error) {
+    console.error("Error loading blog posts:", error);
     return [];
   }
 }

@@ -228,24 +228,6 @@ export default function About() {
                         "Daily analysis of the strategy and business side of technology",
                     },
                     {
-                      name: "Papers We Love",
-                      url: "https://paperswelove.org",
-                      description:
-                        "A repository of academic computer science papers and a community who loves reading them",
-                    },
-                    {
-                      name: "Hacker News",
-                      url: "https://news.ycombinator.com",
-                      description:
-                        "Social news website focusing on computer science and entrepreneurship",
-                    },
-                    {
-                      name: "The Pragmatic Engineer",
-                      url: "https://blog.pragmaticengineer.com",
-                      description:
-                        "In-depth articles about the tech industry and engineering culture",
-                    },
-                    {
                       name: "Acquired Podcast",
                       url: "https://acquired.fm",
                       description:
@@ -286,37 +268,14 @@ export default function About() {
                     {
                       title: "One Up On Wall Street",
                       author: "Peter Lynch",
-                      description:
-                        "The book that got me started with investing at age 12",
                     },
                     {
                       title: "The Intelligent Investor",
                       author: "Benjamin Graham",
-                      description:
-                        "Warren Buffett's favorite book on investing",
                     },
                     {
                       title: "Poor Charlie's Almanack",
                       author: "Charlie Munger",
-                      description:
-                        "Mental models and wisdom from Berkshire's vice chairman",
-                    },
-                    {
-                      title: "The Innovator's Dilemma",
-                      author: "Clayton Christensen",
-                      description:
-                        "Why great companies fail when faced with disruptive innovation",
-                    },
-                    {
-                      title: "Zero to One",
-                      author: "Peter Thiel",
-                      description: "Building companies that create new things",
-                    },
-                    {
-                      title: "The Hard Thing About Hard Things",
-                      author: "Ben Horowitz",
-                      description:
-                        "Building a business when there are no easy answers",
                     },
                   ].map((book, i) => (
                     <div key={i} className="py-2">
@@ -328,9 +287,6 @@ export default function About() {
                         </div>
                         <p className="text-sm text-gray-600 mt-1">
                           by {book.author}
-                        </p>
-                        <p className="text-sm text-gray-600 mt-1">
-                          {book.description}
                         </p>
                       </div>
                     </div>

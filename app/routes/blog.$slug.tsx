@@ -1,4 +1,4 @@
-import type { Route } from "./+types/ideas.$slug";
+import type { Route } from "./+types/blog.$slug";
 import { useLoaderData } from "react-router";
 import { BlogLayout } from "../components/layouts";
 import { MDXProvider } from "@mdx-js/react";
@@ -11,14 +11,14 @@ export async function loader({ params }: Route.LoaderArgs) {
   
   // Fallback metadata for testing
   const fallbackMeta = {
-    title: "Test Post",
+    title: "Test Blog Post",
     date: "2024-01-15",
-    excerpt: "A test post"
+    excerpt: "A test blog post"
   };
   
   try {
     // Just get the frontmatter, not the component
-    const mdxModule = await import(`../../content/ideas/${slug}.mdx`);
+    const mdxModule = await import(`../../content/blog/${slug}.mdx`);
     
     return {
       slug,
@@ -49,7 +49,7 @@ export default function BlogPost() {
   const { frontmatter, slug } = useLoaderData<typeof loader>();
   
   // Dynamically import the MDX component on the client
-  const Content = lazy(() => import(`../../content/ideas/${slug}.mdx`));
+  const Content = lazy(() => import(`../../content/blog/${slug}.mdx`));
   
   return (
     <BlogLayout
@@ -60,6 +60,7 @@ export default function BlogPost() {
       ticker={frontmatter.ticker}
       stockPrice={frontmatter.stockPrice}
       currency={frontmatter.currency}
+      backTo={{ href: "/blog", label: "Blog" }}
     >
       <MDXProvider components={mdxComponents}>
         <div className="max-w-none">

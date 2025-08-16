@@ -6,6 +6,7 @@ const navigation = [
   { name: "About", href: "/about" },
   { name: "Projects", href: "/projects" },
   { name: "Ideas", href: "/ideas" },
+  { name: "Blog", href: "/blog" },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {

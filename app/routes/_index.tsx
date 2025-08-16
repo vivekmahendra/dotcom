@@ -1,5 +1,9 @@
 import type { Route } from "./+types/_index";
-import { HomeIdeasSection, HomeProjectsSection } from "../components/home";
+import {
+  HomeIdeasSection,
+  HomeProjectsSection,
+  HomeBlogSection,
+} from "../components/home";
 import { DecryptedText, LetterGlitch } from "../components/react-bits";
 
 export function meta({}: Route.MetaArgs) {
@@ -34,7 +38,12 @@ export default function Home() {
                 {/* Main heading with modern typography */}
                 <div>
                   <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extralight tracking-tight leading-none mb-2">
-                    <DecryptedText text="Hello, I'm Vivek" animateOn="view" revealDirection="start" speed={100}/>
+                    <DecryptedText
+                      text="Hello, I'm Vivek"
+                      animateOn="view"
+                      revealDirection="start"
+                      speed={100}
+                    />
                   </h1>
                   <div className="flex flex-wrap gap-x-4 gap-y-2 font-mono text-sm text-gray-600 mt-4">
                     <span className="flex items-center">
@@ -51,21 +60,9 @@ export default function Home() {
                 {/* Description */}
                 <div className="space-y-4 max-w-3xl">
                   <p className="text-lg text-gray-700 leading-relaxed">
-                    Building user-focused products and delivering research-driven insights on public companies.
+                    Building user-focused products and delivering
+                    research-driven insights on public companies.
                   </p>
-
-                  {/* Disclaimers */}
-                  <div className="border-l-2 border-gray-300 pl-4 space-y-2">
-                    <p className="text-xs text-gray-500 font-mono">
-                      📊 Investment
-                      content is for informational purposes only. Not financial
-                      advice.
-                    </p>
-                    <p className="text-xs text-gray-500 font-mono">
-                      ✍️ All content
-                      written by me, not AI.
-                    </p>
-                  </div>
                 </div>
 
                 {/* Status line */}
@@ -86,6 +83,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto">
           <HomeIdeasSection />
           <HomeProjectsSection />
+          <HomeBlogSection />
         </div>
       </div>
     </div>
