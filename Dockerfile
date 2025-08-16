@@ -7,8 +7,8 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci
+# Install dependencies with legacy peer deps to handle React 19
+RUN npm ci --legacy-peer-deps
 
 # Copy all files
 COPY . .
@@ -32,8 +32,8 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install production dependencies only
-RUN npm ci --only=production && \
+# Install production dependencies only with legacy peer deps
+RUN npm ci --only=production --legacy-peer-deps && \
     npm cache clean --force
 
 # Copy built application from builder stage
