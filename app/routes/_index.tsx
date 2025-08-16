@@ -60,8 +60,10 @@ export default function Home() {
                 {/* Description */}
                 <div className="space-y-4 max-w-3xl">
                   <p className="text-lg text-gray-700 leading-relaxed">
-                    Building user-focused products and delivering
-                    research-driven insights on public companies.
+                    Building <strong>user-focused</strong> products and
+                    delivering
+                    <strong> research-driven</strong> insights on public
+                    companies.
                   </p>
                 </div>
 
@@ -69,7 +71,12 @@ export default function Home() {
                 <div className="font-mono text-xs text-gray-400 pt-4">
                   LAST_UPDATE:{" "}
                   <span className="text-gray-600">
-                    {new Date().toISOString().split("T")[0]}
+                    <DecryptedText
+                      text={new Date().toISOString().split("T")[0]}
+                      animateOn="view"
+                      speed={50}
+                      useOriginalCharsOnly={false}
+                    />
                   </span>
                 </div>
               </div>
