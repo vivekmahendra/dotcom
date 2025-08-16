@@ -5,11 +5,12 @@ import { PageHeader } from "../components/layouts";
 import { Newsletter } from "../components/ui/Newsletter";
 import { Modal } from "../components/ui/Modal";
 import { handleNewsletterAction } from "../lib/newsletter-action";
+import { TEXT_CONFIG } from "../config/text";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "About - Vivek Mahendra" },
-    { name: "description", content: "Learn more about Vivek Mahendra" },
+    { title: `${TEXT_CONFIG.pages.about.title} - ${TEXT_CONFIG.site.author}` },
+    { name: "description", content: TEXT_CONFIG.pages.about.description },
   ];
 }
 
@@ -173,11 +174,11 @@ export default function About() {
       <div className="container mx-auto px-6 py-20">
         <div className="max-w-4xl mx-auto">
           <div className="mb-12">
-            <PageHeader title="About" />
+            <PageHeader title={TEXT_CONFIG.pages.about.title} />
           </div>
 
           <div className="prose prose-lg max-w-none mb-12">
-            <div className="w-36 h-36 rounded-full overflow-hidden border-2 border-gray-300 float-right ml-6 mb-6 mt-0">
+            <div className="w-36 h-36 rounded-full overflow-hidden border-1 border-gray-300 float-right ml-6 mb-6 mt-0 shadow-md">
               <img
                 src={getImageUrl("profile.png")}
                 alt="Profile"
@@ -194,15 +195,11 @@ export default function About() {
             </div>
 
             <p className="text-xl text-gray-700 leading-relaxed mb-8">
-              I'm Vivek. I like building things, hiking, and researching
-              businesses.
+              {TEXT_CONFIG.pages.about.intro}
             </p>
 
-
             <p className="text-gray-700 leading-relaxed mb-8">
-              This site is where I put my projects and write about things I'm
-              thinking about. Mostly tech, business stuff, and whatever else
-              seems worth sharing.
+              {TEXT_CONFIG.pages.about.content}
             </p>
           </div>
 
@@ -211,93 +208,67 @@ export default function About() {
               {/* Links Section */}
               <div>
                 <h2 className="text-2xl font-light mb-6 text-gray-900">
-                  Links
+                  {TEXT_CONFIG.pages.about.sections.links.title}
                 </h2>
                 <div className="space-y-3">
-                  {[
-                    {
-                      name: "Paul Graham Essays",
-                      url: "http://paulgraham.com/articles.html",
-                      description:
-                        "Thoughtful essays on startups, programming, and life",
-                    },
-                    {
-                      name: "Stratechery",
-                      url: "https://stratechery.com",
-                      description:
-                        "Daily analysis of the strategy and business side of technology",
-                    },
-                    {
-                      name: "Acquired Podcast",
-                      url: "https://acquired.fm",
-                      description:
-                        "Deep dives into the stories and strategies behind great companies",
-                    },
-                  ].map((link, i) => (
-                    <div key={i} className="py-2">
-                      <a
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group inline-block"
-                      >
-                        <div className="flex items-center gap-2">
-                          <span className="text-base font-medium text-gray-900 group-hover:text-black transition-colors">
-                            {link.name}
-                          </span>
-                          <span className="text-gray-400 group-hover:text-gray-600 transition-all group-hover:translate-x-0.5">
-                            ↗
-                          </span>
-                        </div>
-                        <p className="text-sm text-gray-600 mt-1 group-hover:text-gray-700 transition-colors">
-                          {link.description}
-                        </p>
-                      </a>
-                    </div>
-                  ))}
+                  {TEXT_CONFIG.pages.about.sections.links.items.map(
+                    (link, i) => (
+                      <div key={i} className="py-2">
+                        <a
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group inline-block"
+                        >
+                          <div className="flex items-center gap-2">
+                            <span className="text-base font-medium text-gray-900 group-hover:text-black transition-colors">
+                              {link.name}
+                            </span>
+                            <span className="text-gray-400 group-hover:text-gray-600 transition-all group-hover:translate-x-0.5">
+                              ↗
+                            </span>
+                          </div>
+                          <p className="text-sm text-gray-600 mt-1 group-hover:text-gray-700 transition-colors">
+                            {link.description}
+                          </p>
+                        </a>
+                      </div>
+                    )
+                  )}
                 </div>
               </div>
 
               {/* Reading Section */}
               <div>
                 <h2 className="text-2xl font-light mb-6 text-gray-900">
-                  Reading
+                  {TEXT_CONFIG.pages.about.sections.reading.title}
                 </h2>
                 <div className="space-y-3">
-                  {[
-                    {
-                      title: "One Up On Wall Street",
-                      author: "Peter Lynch",
-                    },
-                    {
-                      title: "The Intelligent Investor",
-                      author: "Benjamin Graham",
-                    },
-                    {
-                      title: "Poor Charlie's Almanack",
-                      author: "Charlie Munger",
-                    },
-                  ].map((book, i) => (
-                    <div key={i} className="py-2">
-                      <div className="group">
-                        <div className="flex items-baseline gap-2">
-                          <span className="text-base font-medium text-gray-900">
-                            {book.title}
-                          </span>
+                  {TEXT_CONFIG.pages.about.sections.reading.items.map(
+                    (book, i) => (
+                      <div key={i} className="py-2">
+                        <div className="group">
+                          <div className="flex items-baseline gap-2">
+                            <span className="text-base font-medium text-gray-900">
+                              {book.title}
+                            </span>
+                          </div>
+                          <p className="text-sm text-gray-600 mt-1">
+                            by {book.author}
+                          </p>
                         </div>
-                        <p className="text-sm text-gray-600 mt-1">
-                          by {book.author}
-                        </p>
                       </div>
-                    </div>
-                  ))}
+                    )
+                  )}
                 </div>
               </div>
             </div>
           </div>
 
-<div className="mt-20">
-            <h2 className="text-2xl font-light mb-6 text-gray-900">Photos</h2>
+          <div className="mt-20">
+            <h2 className="text-2xl font-light mb-6 text-gray-900">
+              {TEXT_CONFIG.pages.about.sections.photos.title}
+            </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {galleryPhotos.map((photo, i) => (
                 <div

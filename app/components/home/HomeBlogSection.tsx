@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { getBlog } from "../../utils/content";
+import { TEXT_CONFIG } from "../../config/text";
 
 const blogPosts = getBlog();
 
@@ -13,15 +14,15 @@ export function HomeBlogSection() {
     <section className="py-16">
       <div className="mb-8">
         <div className="flex items-center gap-4 mb-2">
-          <h2 className="text-3xl font-light">Latest Blog</h2>
+          <h2 className="text-3xl font-light">{TEXT_CONFIG.home.sections.blog.title}</h2>
           <Link 
             to="/blog"
             className="group px-4 py-1 text-sm border border-gray-300 rounded-full hover:bg-gray-50 transition-colors"
           >
-            View all <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+            {TEXT_CONFIG.home.sections.blog.viewAllText} <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
           </Link>
         </div>
-        <p className="text-gray-600">Thoughts on tech, business, and more</p>
+        <p className="text-gray-600">{TEXT_CONFIG.home.sections.blog.subtitle}</p>
       </div>
       
       <div>
@@ -47,7 +48,7 @@ export function HomeBlogSection() {
                 to={`/blog/${post.slug}`}
                 className="group text-sm text-gray-600 hover:text-black transition-colors inline-block"
               >
-                Read Article <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+                {TEXT_CONFIG.ui.buttons.readMore} <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
               </Link>
             </article>
             {index < blogPosts.slice(0, 3).length - 1 && (

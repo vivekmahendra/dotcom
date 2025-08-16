@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { getProjects } from "../../utils/content";
+import { TEXT_CONFIG } from "../../config/text";
 
 const projects = getProjects();
 
@@ -8,15 +9,15 @@ export function HomeProjectsSection() {
     <section className="py-16">
       <div className="mb-8">
         <div className="flex items-center gap-4 mb-2">
-          <h2 className="text-3xl font-light">Recent Projects</h2>
+          <h2 className="text-3xl font-light">{TEXT_CONFIG.home.sections.projects.title}</h2>
           <Link 
             to="/projects"
             className="group px-4 py-1 text-sm border border-gray-300 rounded-full hover:bg-gray-50 transition-colors"
           >
-            View all <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+            {TEXT_CONFIG.home.sections.projects.viewAllText} <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
           </Link>
         </div>
-        <p className="text-gray-600">Selected work and experiments</p>
+        <p className="text-gray-600">{TEXT_CONFIG.home.sections.projects.subtitle}</p>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -31,7 +32,7 @@ export function HomeProjectsSection() {
               to={`/projects/${project.slug}`}
               className="group text-sm text-gray-600 hover:text-black transition-colors inline-block"
             >
-              View Project <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+              {TEXT_CONFIG.ui.buttons.learnMore} <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
             </Link>
           </div>
         ))}

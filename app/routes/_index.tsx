@@ -5,11 +5,12 @@ import {
   HomeBlogSection,
 } from "../components/home";
 import { DecryptedText, LetterGlitch } from "../components/react-bits";
+import { TEXT_CONFIG } from "../config/text";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Vivek Mahendra - Portfolio" },
-    { name: "description", content: "Welcome to Vivek Mahendra's portfolio" },
+    { title: TEXT_CONFIG.site.title },
+    { name: "description", content: TEXT_CONFIG.site.description },
   ];
 }
 
@@ -39,37 +40,34 @@ export default function Home() {
                 <div>
                   <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extralight tracking-tight leading-none mb-2">
                     <DecryptedText
-                      text="Hello, I'm Vivek"
+                      text={TEXT_CONFIG.home.hero.greeting}
                       animateOn="view"
                       revealDirection="start"
                       speed={100}
                     />
                   </h1>
                   <div className="flex flex-wrap gap-x-4 gap-y-2 font-mono text-sm text-gray-600 mt-4">
-                    <span className="flex items-center">
-                      <span className="text-green-600 mr-1">&gt;</span> Software
-                      Engineer
-                    </span>
-                    <span className="flex items-center">
-                      <span className="text-green-600 mr-1">&gt;</span> Value
-                      Investor
-                    </span>
+                    {TEXT_CONFIG.home.hero.roles.map((role, index) => (
+                      <span key={index} className="flex items-center">
+                        <span className="text-green-600 mr-1">{role.prefix}</span> {role.label}
+                      </span>
+                    ))}
                   </div>
                 </div>
 
                 {/* Description */}
                 <div className="space-y-4 max-w-3xl">
-                  <p className="text-lg text-gray-700 leading-relaxed">
-                    Building <strong>user-focused</strong> products and
-                    delivering
-                    <strong> research-driven</strong> insights on public
-                    companies.
-                  </p>
+                  <p 
+                    className="text-lg text-gray-700 leading-relaxed"
+                    dangerouslySetInnerHTML={{ 
+                      __html: TEXT_CONFIG.home.hero.description.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') 
+                    }}
+                  />
                 </div>
 
                 {/* Status line */}
                 <div className="font-mono text-xs text-gray-400 pt-4">
-                  LAST_UPDATE:{" "}
+                  {TEXT_CONFIG.home.hero.lastUpdateLabel}{" "}
                   <span className="text-gray-600">
                     <DecryptedText
                       text={new Date().toISOString().split("T")[0]}
