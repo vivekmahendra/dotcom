@@ -20,7 +20,7 @@ const posts = getIdeas();
 
 export default function Ideas() {
   return (
-    <div className="bg-white text-black">
+    <div className="bg-white text-black overflow-x-hidden">
       {/* Newsletter Banner */}
       <Newsletter banner={true} />
       

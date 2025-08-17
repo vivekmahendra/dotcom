@@ -20,7 +20,7 @@ const posts = getBlog();
 
 export default function Blog() {
   return (
-    <div className="bg-white text-black">
+    <div className="bg-white text-black overflow-x-hidden">
       {/* Newsletter Banner */}
       <Newsletter banner={true} />
       

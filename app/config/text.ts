@@ -127,7 +127,7 @@ export const TEXT_CONFIG = {
         label: "LinkedIn",
       },
       twitter: {
-        href: "https://x.com/vivekmahendra",
+        href: "https://x.com/vivekmahendr",
         label: "X (Twitter)",
       },
       github: {

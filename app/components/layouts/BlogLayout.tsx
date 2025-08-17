@@ -29,7 +29,7 @@ export function BlogLayout({
   children 
 }: BlogLayoutProps) {
   return (
-    <div className="bg-white text-black">
+    <div className="bg-white text-black overflow-x-hidden">
       <div className="container mx-auto px-6 py-20">
         <div className="max-w-6xl mx-auto">
           {/* Back Link */}
