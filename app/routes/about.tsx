@@ -172,7 +172,7 @@ export default function About() {
   return (
     <div className="bg-white text-black overflow-x-hidden">
       <div className="container mx-auto px-6 py-20">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <div className="mb-12">
             <PageHeader title={TEXT_CONFIG.pages.about.title} />
           </div>

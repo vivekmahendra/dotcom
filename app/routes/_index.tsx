@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <div className="bg-white text-black overflow-x-hidden">
       {/* Full-width Header Section with LetterGlitch Background */}
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-hidden" style={{overflowX: 'hidden'}}>
         {/* LetterGlitch Background - fills entire background */}
         <div className="absolute inset-0 z-0">
           <LetterGlitch
