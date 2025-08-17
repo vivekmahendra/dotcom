@@ -73,8 +73,8 @@ website/
 
 ```bash
 # Clone the repository
-git clone https://github.com/vivekmahendra/website.git
-cd website
+git clone https://github.com/vivekmahendra/dotcom.git
+cd dotcom
 
 # Install dependencies
 npm install
