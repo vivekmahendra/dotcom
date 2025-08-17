@@ -13,7 +13,7 @@ from datetime import datetime
 from typing import Optional, Tuple, Dict
 
 # Configuration - Update with your Supabase URL
-SUPABASE_URL = "***REMOVED***"
+SUPABASE_URL = "https://vdknvlzooopdyxshpplj.supabase.co"
 BUCKET_NAME = "website-assets"
 FOLDER_NAME = "about"
 
