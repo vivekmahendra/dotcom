@@ -342,7 +342,7 @@ export function SankeyChart({
                                       dy="0.35em"
                                       fontSize={isCenter ? responsive.fontSize.label + 2 : responsive.fontSize.label}
                                       fontWeight={width < 640 ? (isCenter ? 'bold' : '500') : (isCenter ? 'bold' : 'medium')}
-                                      fill={isCenter ? '#1f2937' : (node.category === 'elimination' || node.category === 'expense') ? '#dc2626' : '#374151'}
+                                      fill={isCenter ? '#e5e7eb' : (node.category === 'elimination' || node.category === 'expense') ? '#dc2626' : '#374151'}
                                       textAnchor={isCenter ? 'middle' : (node.category === 'source' || node.category === 'intermediate') ? 'end' : 'start'}
                                       className="font-sans pointer-events-none"
                                     >

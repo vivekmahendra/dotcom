@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import { getProjects } from "../../utils/content";
 import { TEXT_CONFIG } from "../../config/text";
+import { GitHubIcon } from "../ui/icons";
 
 const projects = getProjects();
 
@@ -28,12 +29,25 @@ export function HomeProjectsSection() {
           >
             <h3 className="text-xl font-medium mb-3">{project.name}</h3>
             <p className="text-gray-600 mb-4">{project.description}</p>
-            <Link
-              to={`/projects/${project.slug}`}
-              className="group text-sm text-gray-600 hover:text-black transition-colors inline-block"
-            >
-              {TEXT_CONFIG.ui.buttons.learnMore} <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
-            </Link>
+            <div className="flex items-center justify-between">
+              <Link
+                to={`/projects/${project.slug}`}
+                className="group text-sm text-gray-600 hover:text-black transition-colors inline-block"
+              >
+                {TEXT_CONFIG.ui.buttons.learnMore} <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+              </Link>
+              {project.link && project.link.includes('github.com') && (
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group p-2 text-gray-500 hover:text-gray-900 transition-colors"
+                  title="View on GitHub"
+                >
+                  <GitHubIcon className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                </a>
+              )}
+            </div>
           </div>
         ))}
       </div>

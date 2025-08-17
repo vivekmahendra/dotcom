@@ -52,32 +52,31 @@ export function BlogLayout({
               </p>
             )}
             
-            <div className="flex items-center text-sm text-gray-500 space-x-4">
-              <time>{new Date(date).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })}</time>
-              <span>•</span>
-              <span>{readingTime}</span>
+            <div className="flex flex-col sm:flex-row sm:items-center text-sm text-gray-500 gap-2 sm:gap-4 items-start">
+              <div className="flex items-center gap-4">
+                <time>{new Date(date).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })}</time>
+                <span>•</span>
+                <span>{readingTime}</span>
+              </div>
               {ticker && stockPrice && (
-                <>
-                  <span>•</span>
-                  <div className="flex items-center space-x-2">
-                    <span className="bg-gray-100 px-2 py-1 rounded text-xs font-medium text-gray-700">
-                      ${ticker}
-                    </span>
-                    <span className="text-gray-700 font-medium">
-                      ${stockPrice.toLocaleString('en-US', { 
-                        minimumFractionDigits: 2, 
-                        maximumFractionDigits: 2 
-                      })}
-                    </span>
-                    <span className="text-xs text-gray-400">
-                      at publication
-                    </span>
-                  </div>
-                </>
+                <div className="flex items-center gap-2">
+                  <span className="bg-gray-100 px-2 py-1 rounded text-xs font-medium text-gray-700">
+                    ${ticker}
+                  </span>
+                  <span className="text-gray-700 font-medium">
+                    ${stockPrice.toLocaleString('en-US', { 
+                      minimumFractionDigits: 2, 
+                      maximumFractionDigits: 2 
+                    })}
+                  </span>
+                  <span className="text-xs text-gray-400">
+                    at publication
+                  </span>
+                </div>
               )}
             </div>
           </header>

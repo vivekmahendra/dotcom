@@ -9,4 +9,6 @@ export default [
   route("projects/:slug", "routes/projects.$slug.tsx"),
   route("ideas", "routes/ideas.tsx"),
   route("ideas/:slug", "routes/ideas.$slug.tsx"),
+  route("links", "routes/links.tsx"),
+  route("reading", "routes/reading.tsx"),
 ] satisfies RouteConfig;

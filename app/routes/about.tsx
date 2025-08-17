@@ -1,9 +1,10 @@
 import type { Route } from "./+types/about";
-import { useLoaderData } from "react-router";
+import { useLoaderData, Link } from "react-router";
 import { useState, useEffect } from "react";
 import { PageHeader } from "../components/layouts";
 import { Newsletter } from "../components/ui/Newsletter";
 import { Modal } from "../components/ui/Modal";
+import { IPhoneIcon } from "../components/ui/icons";
 import { handleNewsletterAction } from "../lib/newsletter-action";
 import { TEXT_CONFIG } from "../config/text";
 
@@ -211,7 +212,7 @@ export default function About() {
                   {TEXT_CONFIG.pages.about.sections.links.title}
                 </h2>
                 <div className="space-y-3">
-                  {TEXT_CONFIG.pages.about.sections.links.items.map(
+                  {TEXT_CONFIG.pages.about.sections.links.items.slice(0, 3).map(
                     (link, i) => (
                       <div key={i} className="py-2">
                         <a
@@ -236,6 +237,14 @@ export default function About() {
                     )
                   )}
                 </div>
+                <div className="mt-6">
+                  <Link
+                    to="/links"
+                    className="group inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                  >
+                    View All <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+                  </Link>
+                </div>
               </div>
 
               {/* Reading Section */}
@@ -244,7 +253,7 @@ export default function About() {
                   {TEXT_CONFIG.pages.about.sections.reading.title}
                 </h2>
                 <div className="space-y-3">
-                  {TEXT_CONFIG.pages.about.sections.reading.items.map(
+                  {TEXT_CONFIG.pages.about.sections.reading.items.slice(0, 3).map(
                     (book, i) => (
                       <div key={i} className="py-2">
                         <div className="group">
@@ -261,14 +270,28 @@ export default function About() {
                     )
                   )}
                 </div>
+                <div className="mt-6">
+                  <Link
+                    to="/reading"
+                    className="group inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                  >
+                    View All <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
 
           <div className="mt-20">
-            <h2 className="text-2xl font-light mb-6 text-gray-900">
+            <h2 className="text-2xl font-light text-gray-900">
               {TEXT_CONFIG.pages.about.sections.photos.title}
             </h2>
+            <div className="flex items-center gap-2 mb-6 mt-1">
+              <span className="text-xs text-gray-600 font-mono">
+                Shot on my iPhone
+              </span>
+              <IPhoneIcon className="w-4 h-5 text-gray-600" />
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {galleryPhotos.map((photo, i) => (
                 <div
