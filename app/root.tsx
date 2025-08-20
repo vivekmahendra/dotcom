@@ -58,16 +58,16 @@ export default function App() {
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  let message = TEXT_CONFIG.errors.generic.title;
-  let details = TEXT_CONFIG.errors.generic.description;
+  let message: string = TEXT_CONFIG.errors.generic.title;
+  let details: string = TEXT_CONFIG.errors.generic.description;
   let stack: string | undefined;
 
   if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? TEXT_CONFIG.errors.notFound.title : "Error";
+    message = error.status === 404 ? TEXT_CONFIG.errors.notFound.title : TEXT_CONFIG.errors.generic.title;
     details =
       error.status === 404
         ? TEXT_CONFIG.errors.notFound.description
-        : error.statusText || details;
+        : error.statusText || TEXT_CONFIG.errors.generic.description;
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message;
     stack = error.stack;

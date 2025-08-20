@@ -33,7 +33,7 @@ export async function emailExists(email: string): Promise<boolean> {
   // Use Supabase if configured, otherwise fall back to in-memory
   if (checkSupabaseConnection()) {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await supabase!
         .from('newsletter_subscribers')
         .select('id')
         .eq('email', email.toLowerCase())
@@ -71,7 +71,7 @@ export async function addSubscriber(email: string): Promise<Subscriber> {
   // Use Supabase if configured, otherwise fall back to in-memory
   if (checkSupabaseConnection()) {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await supabase!
         .from('newsletter_subscribers')
         .insert({
           email: email.toLowerCase(),
@@ -108,7 +108,7 @@ export async function getSubscribers(): Promise<Subscriber[]> {
   // Use Supabase if configured, otherwise fall back to in-memory
   if (checkSupabaseConnection()) {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await supabase!
         .from('newsletter_subscribers')
         .select('*')
         .eq('status', 'active')
@@ -134,7 +134,7 @@ export async function getSubscriberCount(): Promise<number> {
   // Use Supabase if configured, otherwise fall back to in-memory
   if (checkSupabaseConnection()) {
     try {
-      const { count, error } = await supabase
+      const { count, error } = await supabase!
         .from('newsletter_subscribers')
         .select('*', { count: 'exact', head: true })
         .eq('status', 'active');

@@ -1,0 +1,47 @@
+---
+name: "stocks.vivekmahendra.com"
+description: "Personal trading and investment research dashboard"
+link: "https://github.com/vivekmahendra/stocks"
+date: "2025-08-19"
+technologies:
+  [
+    "Alpaca",
+    "typescript",
+    "react",
+    "react-router",
+    "tailwindcss",
+    "visx",
+    "d3",
+    "Cloud Run",
+  ]
+---
+
+## Goals
+
+1. Build tools to manage, track, and automate investment strategies
+2. Build production system that trades BRK.B around management's buyback behavior and the "Buffett Put"
+
+## Hypothesis
+
+Berkshire tends to repurchase when shares are believed to be undervalued or management's preferred valuation band.
+Buying near this band with light momentum confirmation and exiting on mean reversion should produce positive low volatility returns
+
+## Data & Features
+
+- daily OHLCV data
+- Book value per B-share
+- Buyback intensity proxy
+- Price to Book Ratio
+
+### Engineered features
+
+- p/b z-score
+- vwap
+- in_buyback_window
+
+#### To Do:
+
+- [ ] Implement data ingestion pipeline
+- [ ] Create feature engineering scripts
+- [ ] Develop backtesting framework
+- [ ] Set up cloud infrastructure for deployment
